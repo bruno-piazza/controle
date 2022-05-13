@@ -1,0 +1,29 @@
+clc
+clear
+close
+
+A = importdata('matrix_A1lin.txt');
+B = importdata('matrix_B1lin.txt');
+C = importdata('matrix_C1.txt');
+D = importdata('matrix_D1.txt');
+
+p = [-3+1i -3-1i -5+1i -5-1i -3 -4];
+K=place(A,B,p);
+sys = ss(A-B*K,B,C,D);
+
+
+
+A1=[A B;C D];
+A2=inv(A1);
+% Regulador: p1=p2*=-1+j
+
+F=A-B*K;
+eig(F)
+Nx=Nxu(1:2);
+Nu=Nxu(3);
+urp=Nu+K*Nx;
+B2=[0 urp]';
+step(F,B2,C,D)
+hold on
+C1=[0 1];
+step(F,B2,C1,D)

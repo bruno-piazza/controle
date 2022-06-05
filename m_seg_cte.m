@@ -9,8 +9,8 @@ C = importdata('matrix_C1.txt');
 D = importdata('matrix_D1.txt');
 
 x_ref = [pi/4 pi/5 pi/3 0 0 0];
-seq = 'XYZ';
-q_ref = eul2quat(x_ref(1:3),seq);
+seq = [X Y Z];
+q_ref = eulang2quat(x_ref(1:3),seq);
 xq_ref = [q_ref(2:4),x_ref(4:6)];
 
 p = [-0.2+0.8i -0.2-0.8i -0.4+0.6i -0.4-0.6i -0.5 -0.6];

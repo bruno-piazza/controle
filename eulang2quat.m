@@ -1,9 +1,4 @@
 function q = eulang2quat(ang1,ang2,ang3,rot_seq)
-    %% Degrees to Radians
-    ang1 = ang1*pi/180;
-    ang2 = ang2*pi/180;
-    ang3 = ang3*pi/180;
-    
     %% Euler Angles to Direct Cosine Matrix (DCM)
     DCM1 = rotation_matrix(rot_seq(1),ang1);
     DCM2 = rotation_matrix(rot_seq(2),ang2);

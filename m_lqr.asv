@@ -1,0 +1,29 @@
+clc
+clear
+close
+
+addpath('Matrizes\')
+
+A = importdata('matrix_A1lin.txt');
+B = importdata('matrix_B1lin.txt');
+C = importdata('matrix_C1.txt');
+D = importdata('matrix_D1.txt');
+
+polos = eig(A);
+
+
+Q = eye(6);
+P = eye(3);
+N = eye(6,3);
+K = lqr(A,B,Q,P,N);
+B1 = [zeros(3,3);ones(3,3)];
+
+sys_lqr = ss(A-B*K,B1,C,D);
+[y,t,x]=impulse(sys_lqr);
+
+figure(1)
+pzmap(sys_lqr)
+grid on
+
+figure(2)
+impulse(sys_aloc)

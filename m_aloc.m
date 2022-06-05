@@ -18,13 +18,15 @@ p = [-0.2+0.8i -0.2-0.8i -0.4+0.6i -0.4-0.6i -0.5 -0.6];
 K = place(A,B,p);
 B1 = [zeros(3,3);ones(3,3)];
 
-sys = ss(A-B*K,B1,C,D);
-pzmap(sys)
+sys_aloc = ss(A-B*K,B1,C,D);
+[y,t,x]=impulse(sys_aloc);
 
-[y,t,x]=impulse(sys);
+figure(1)
+pzmap(sys_aloc)
+grid on
 
 figure(2)
-impulse(sys)
+impulse(sys_aloc)
 
 % figure(3)
 % hold on

@@ -6,11 +6,15 @@ addpath('Matrizes\')
 
 A = importdata('matrix_A1lin.txt');
 B = importdata('matrix_B1lin.txt');
-C = importdata('matrix_C1.txt');
-D = importdata('matrix_D1.txt');
+% C = importdata('matrix_C1.txt');
+C=[eye(3),zeros(3,3)];
+D=[zeros(3,3)];
+% D = importdata('matrix_D1.txt');
 
 Co = ctrb(A,B);
+rank(Co);
 Ob = obsv(A,C);
+rank(Ob);
 
 polos = eig(A);
 

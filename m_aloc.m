@@ -6,10 +6,8 @@ addpath('Matrizes\')
 
 A = importdata('matrix_A1lin.txt');
 B = importdata('matrix_B1lin.txt');
-% C = importdata('matrix_C1.txt');
-C=[eye(3),zeros(3,3)];
-D=[zeros(3,3)];
-% D = importdata('matrix_D1.txt');
+C = importdata('matrix_C1.txt');
+D = importdata('matrix_D1.txt');
 
 Co = ctrb(A,B);
 rank(Co);
@@ -20,7 +18,7 @@ polos = eig(A);
 
 p = [-0.2+0.8i -0.2-0.8i -0.4+0.6i -0.4-0.6i -0.5 -0.6];
 K = place(A,B,p);
-B1 = [zeros(3,3);ones(3,3)];
+B1 = [zeros(3,3);eye(3,3)];
 
 sys_aloc = ss(A-B*K,B1,C,D);
 [y,t,x]=impulse(sys_aloc);
@@ -30,7 +28,7 @@ pzmap(sys_aloc)
 grid on
 
 figure(2)
-impulse(sys_aloc)
+step(sys_aloc)
 
 % figure(3)
 % hold on

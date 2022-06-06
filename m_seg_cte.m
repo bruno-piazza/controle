@@ -8,7 +8,7 @@ B = importdata('matrix_B1lin.txt');
 C = importdata('matrix_C1.txt');
 D = importdata('matrix_D1.txt');
 
-x_ref = [pi/4 pi/5 pi/3 0 0 0];
+x_ref = [pi/4 pi/3 pi/5 0 0 0];
 seq = 'ZXZ';
 q_ref = angle2quat(x_ref(1),x_ref(2),x_ref(3),seq);
 xq_ref = [q_ref(2:4),x_ref(4:6)];
@@ -32,9 +32,9 @@ sys_aloc = ss(F,B2,C,D);
 % step(sys_aloc)
 
 q0 = q_ref(1);
-q1 = y(:,1,1);
-q2 = y(:,2,2);
-q3 = y(:,3,3);
+q1 = y(:,1,1)+0;
+q2 = y(:,2,2)+0;
+q3 = y(:,3,3)+0;
 w1 = y(:,4,1);
 w2 = y(:,5,2);
 w3 = y(:,6,3);

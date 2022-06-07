@@ -96,7 +96,7 @@ saveas(1, fullFileName);
 % hold off
 % grid on
 
-q=[1 0 0 0 0 0.15 0];
+q=[1 0 0 0 0.15 0.15 0.15];
 passo=0.001;
 t=0:passo:15;
 u=zeros(length(t),3);
@@ -116,7 +116,7 @@ ylabel("Velocidade angular [rad/s]")
 legend('\omega_1','\omega_2','\omega_3','Location','east')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "lqr_w2_vel");
+baseFileName = sprintf('Image_%s.png', "lqr_wt_vel");
 fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 saveas(6, fullFileName);
 
@@ -131,7 +131,7 @@ ylabel("Posição angular [rad]")
 legend('q_1','q_2','q_3','Location','east')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "lqr_w2_pos");
+baseFileName = sprintf('Image_%s.png', "lqr_wt_pos");
 fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 saveas(7, fullFileName);
 
@@ -151,6 +151,6 @@ xlabel('Tempo [s]')
 legend('T_1','T_2','T_3','Location','east')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "lqr_w2_tor");
+baseFileName = sprintf('Image_%s.png', "lqr_wt_tor");
 fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 saveas(7, fullFileName);

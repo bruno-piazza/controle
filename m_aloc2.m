@@ -126,7 +126,7 @@ q=[1 0 0 0 0 0 0];
 passo=0.001;
 t=0:passo:15;
 u=zeros(length(t),3);
-u(1:5000,2)=ones(5000,1);
+u(1:5000,:)=ones(5000,3);
 % u(:,1)=zeros(length(t),1);
 % u(:,3)=zeros(length(t),1);
 [y]=lsim(sys_aloc,u,t,q(2:end));
@@ -144,7 +144,7 @@ ylabel("Velocidade angular [rad/s]")
 legend('w_1','w_2','w_3','Location','northeast')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "aloc_u2_vel");
+baseFileName = sprintf('Image_%s.png', "aloc_ut_vel");
 fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 saveas(6, fullFileName);
 
@@ -159,7 +159,7 @@ ylabel("Posição angular [rad]")
 legend('q_1','q_2','q_3','Location','northeast')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "aloc_u2_pos");
+baseFileName = sprintf('Image_%s.png', "aloc_ut_pos");
 fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 saveas(7, fullFileName);
 

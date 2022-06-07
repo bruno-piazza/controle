@@ -12,7 +12,7 @@ close all
 % 4. Matriz de transição e termos forçantes - simulação e comparação com 
 %    modelo linear (extra)
 
-code = 2;
+code = 3;
 
 %% Dados do sistema
 % Matrizes do espaço de estados

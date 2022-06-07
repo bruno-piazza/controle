@@ -17,13 +17,13 @@ function [y_lin,y_nonlin,t] = sys_sim(A,B,C,D,x0lin,x0nlin,x_eq,u,t,mag,ti,tf,ro
 %     legend({'linear','não linear'},'Location','southwest')
     
     figure(1)
-    plot(t,y_lin(:,1),'linewidth',1.5)
+    plot(t,y_lin(:,1),'linewidth',1.2)
     hold on
     %plot(t,y_nonlin(:,1),'--','linewidth',1.5)
     grid on
-    xlabel('Tempo [s]','fontsize',12.5)
-    ylabel('q_1 [rad]','fontsize',12.5)
-    title('Quatérnio q_1 em função do tempo','fontsize',12.5)
+    xlabel('Tempo [s]')
+    ylabel('q_1 [rad]')
+    title("Posição angular: pulso aplicado")
         
     figure(2)
     plot(t,y_lin(:,2),'linewidth',1.5)
@@ -56,13 +56,13 @@ function [y_lin,y_nonlin,t] = sys_sim(A,B,C,D,x0lin,x0nlin,x_eq,u,t,mag,ti,tf,ro
 %     legend({'linear','não linear'},'Location','northeast')
     
     figure(4)
-    plot(t,y_lin(:,4),'linewidth',1.5)
+    plot(t,y_lin(:,4),'linewidth',1.2)
     hold on
     %plot(t,y_nonlin(:,4),'--','linewidth',1.5)
     grid on
-    xlabel('Tempo [s]','fontsize',12.5)
-    ylabel('dq_1 [rad/s]','fontsize',12.5)
-    title('Taxa do quatérnio q_1 em função do tempo','fontsize',12.5)
+    xlabel('Tempo [s]')
+    ylabel('\omega_1 [rad/s]')
+    title("Velocidade angular: pulso aplicado")
     
     figure(5)
     plot(t,y_lin(:,5),'linewidth',1.5)

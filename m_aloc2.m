@@ -144,7 +144,7 @@ ylabel("Velocidade angular [rad/s]")
 legend('w_1','w_2','w_3','Location','east')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "aloc_vel");
+baseFileName = sprintf('Image_%s.png', "aloc_u2_vel");
 fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 saveas(6, fullFileName);
 
@@ -159,7 +159,7 @@ ylabel("Posição angular [rad]")
 legend('q_1','q_2','q_3','Location','southeast')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "aloc_pos");
+baseFileName = sprintf('Image_%s.png', "aloc_u2_pos");
 fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 saveas(7, fullFileName);
 

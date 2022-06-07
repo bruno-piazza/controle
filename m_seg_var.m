@@ -20,9 +20,9 @@ p = [p1 conj(p1) p2 conj(p2) -0.5 -0.4];
 K = place(A,B2,p);
 F = A-B2*K;
 
-A_r = [0 0 0 0 0 0;
-    0 0 0 0 0 0;
-    0 0 0 0 0 0; 
+A_r = [0 0 0 1/2 0 0;
+    0 0 0 0 1/2 0;
+    0 0 0 0 0 -1/2; 
     0 0 0 0 0 0; 
     0 0 0 0 0 0; 
     0 0 0 0 0 0];
@@ -44,23 +44,65 @@ A_y = [B1 B2*K]-B2*K_ex;
 A_bar = [F A_y;zeros(12,6) A_o];
 x_bar_0 = [0 0 0 0 0 0 ...
     0 0 0 0 0 0 ...
-    0 0 0 0 0 0]';
+    xq_r(1) xq_r(2) xq_r(3) 0 0 0 ]';
 
 sys = ss(A_bar,x_bar_0,A_bar,x_bar_0);
-[y,t]=step(sys);
+[y,t]=step(sys,30);
+
+q0 = q_r(1);
+q1 = y(:,1);
+q2 = y(:,2);
+q3 = y(:,3);
+w1 = y(:,4);
+w2 = y(:,5);
+w3 = y(:,6);
+
+[psi,theta,phi] = quat2eulang(q0,q1,q2,q3,seq);
 
 figure(1)
-plot(t,y(:,1))
+plot(t,w1,LineWidth=1.20)
+hold on
+plot(t,w2,LineWidth=1.20)
+plot(t,w3,LineWidth=1.20)
+title("Velocidade angular ao longo do tempo")
+xlabel("Tempo [s]")
+ylabel("Velocidade angular [rad/s]")
+legend('w1','w2','w3')
+hold off
+
+baseFileName = sprintf('Image_%s.png', "seg_var_w_t");
+fullFileName = fullfile("Imagens\Controle Moderno\", baseFileName);
+saveas(1, fullFileName);
+
 figure(2)
-plot(t,y(:,2))
+plot(t,q1,LineWidth=1.20)
+hold on
+plot(t,q2,LineWidth=1.20)
+plot(t,q3,LineWidth=1.20)
+title("Posição angular em quatérnios ao longo do tempo")
+xlabel("Tempo [s]")
+ylabel("Posição angular [rad]")
+legend('q1','q2','q3','Location','northwest')
+hold off
+
+baseFileName = sprintf('Image_%s.png', "seg_var_quat_t");
+fullFileName = fullfile("Imagens\Controle Moderno\", baseFileName);
+saveas(2, fullFileName);
+
 figure(3)
-plot(t,y(:,3))
-figure(4)
-plot(t,y(:,4))
-figure(5)
-plot(t,y(:,5))
-figure(6)
-plot(t,y(:,6))
+plot(t,psi,LineWidth=1.20)
+hold on
+plot(t,theta,LineWidth=1.20)
+plot(t,phi,LineWidth=1.20)
+title("Posição angular em ângulos de Euler ao longo do tempoo")
+xlabel("Tempo [s]")
+ylabel("Posição angular [rad]")
+legend('psi','theta','phi','Location','southeast')
+hold off
+
+baseFileName = sprintf('Image_%s.png', "seg_var_euler_t");
+fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+saveas(3, fullFileName);
 
 
 

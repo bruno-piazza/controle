@@ -7,14 +7,11 @@ addpath("Imagens\Controle Moderno\")
 
 A = importdata('matrix_A1lin.txt');
 B2 = importdata('matrix_B1lin.txt');
+B1 = -B2*0.2;
 C = [eye(3) zeros(3,3)];
 
-Co = ctrb(A',C');
-rank(Co);
-Ob = obsv(A,C);
-rank(Ob);
 
-% polos alocados
+% polos alocados LQR
 p = [-0.8+0.6i -0.8-0.6i -2.6+0.3i -2.6-0.3i -1. -0.8];
 
 k = 2;
@@ -24,7 +21,7 @@ K_obs = transpose(place(A',C',p_obs));
 
 O = (A-K_obs*C); 
 
-B1 = -B2*0.2;
+
 
 sys_obs_aloc = ss(O,B1,C,0);
 
@@ -34,7 +31,7 @@ dt = 0.001;
 tf = 10;
 t = 0:dt:tf;
 
-u=zeros(length(t),3)*0;
+u=zeros(length(t),3);
 u(1:5000,2)=ones(5000,1)*0.025;
 
 e0 = [1 1 1 1 1 1];

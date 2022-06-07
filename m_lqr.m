@@ -12,7 +12,7 @@ D = importdata('matrix_D1.txt');
 Q = eye(6); %ajustar
 P = eye(3); %ajustar
 K = lqr(A,B,Q,P);
-B1 = [zeros(3,3);ones(3,3)];
+B1 = [zeros(3,3);eye(3,3)];
 sys_lqr = ss(A-B*K,B1,C,D);
 [y,t,x]=impulse(sys_lqr);
 

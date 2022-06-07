@@ -141,7 +141,7 @@ plot(t,y(:,6),LineWidth=1.20)
 title("Velocidade angular: degrau aplicado")
 xlabel("Tempo [s]")
 ylabel("Velocidade angular [rad/s]")
-legend('w_1','w_2','w_3','Location','east')
+legend('w_1','w_2','w_3','Location','northeast')
 hold off
 grid on
 baseFileName = sprintf('Image_%s.png', "aloc_u2_vel");
@@ -156,7 +156,7 @@ plot(t,y(:,3),LineWidth=1.20)
 title("Posição: degrau aplicado")
 xlabel("Tempo [s]")
 ylabel("Posição angular [rad]")
-legend('q_1','q_2','q_3','Location','southeast')
+legend('q_1','q_2','q_3','Location','northeast')
 hold off
 grid on
 baseFileName = sprintf('Image_%s.png', "aloc_u2_pos");

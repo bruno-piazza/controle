@@ -6,6 +6,10 @@ addpath('Matrizes\')
 addpath("Imagens\Controle Moderno\")
 
 
+q0=1;
+q1=0;
+q2=0;
+q3=0;
 
 passo=0.01;
 t=0:passo:10;
@@ -44,9 +48,9 @@ grid on
 
 figure(3)
 hold on
-plot(t,y(:,4,2),LineWidth=1.20)
+plot(t,y(:,4,1),LineWidth=1.20)
 plot(t,y(:,5,2),LineWidth=1.20)
-plot(t,y(:,6,2),LineWidth=1.20)
+plot(t,y(:,6,3),LineWidth=1.20)
 title("Velocidade angular: degrau aplicado")
 xlabel("Tempo [s]")
 ylabel("Velocidade angular [rad/s]")
@@ -60,9 +64,9 @@ grid on
 
 figure(4)
 hold on
-plot(t,y(:,1,2),LineWidth=1.20)
+plot(t,y(:,1,1),LineWidth=1.20)
 plot(t,y(:,2,2),LineWidth=1.20)
-plot(t,y(:,3,2),LineWidth=1.20)
+plot(t,y(:,3,3),LineWidth=1.20)
 title("Posição: degrau aplicado")
 xlabel("Tempo [s]")
 ylabel("Posição angular [rad]")
@@ -124,14 +128,11 @@ q=[1 0 0 0 0 0 0];
 
 
 passo=0.001;
-t=0:passo:15;
-u=zeros(length(t),3);
-u(1:5000,2)=ones(5000,1)
+t=0:passo:12;
+u=ones(length(t),3);
 % u(:,1)=zeros(length(t),1);
 % u(:,3)=zeros(length(t),1);
 [y]=lsim(sys_aloc,u,t,q(2:end))
-
-
 
 figure(6)
 hold on
@@ -161,18 +162,3 @@ legend('q_1','q_2','q_3','Location','southeast')
 hold off
 grid on
 % axis([0 12 0 0.12])
-
-% 
-% [psi,theta,phi] = quat2eulang(q(1),y(:,1),y(:,2),y(:,3),'ZXZ');
-% 
-% figure(8)
-% hold on
-% plot(t,psi,LineWidth=1.20)
-% plot(t,theta,LineWidth=1.20)
-% plot(t,phi,LineWidth=1.20)
-% title("Posição: degrau aplicado")
-% xlabel("Tempo [s]")
-% ylabel("Posição angular [rad]")
-% legend('psi','theta','phi','Location','southeast')
-% hold off
-% grid on

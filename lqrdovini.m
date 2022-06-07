@@ -125,18 +125,17 @@ legend('q_1','q_2','q_3','Location','east')
 hold off
 grid on
 
-% Torq1=-K*y(:,:,1)';
-% Torq2=-K*y(:,:,2)';
-% Torq3=-K*y(:,:,3)';
+Torq=-K*y';
+
 % 
-% figure(5)
-% plot(t,Torq1(1,:),LineWidth=1.20)
-% hold on
-% plot(t,Torq2(2,:),LineWidth=1.20)
-% plot(t,Torq3(3,:),LineWidth=1.20)
-% title("Torque: degrau aplicado")
-% ylabel('Torque [N.m]')
-% xlabel('Tempo [s]')
-% legend('T_1','T_2','T_3','Location','east')
-% hold off
-% grid on
+figure(5)
+plot(t,Torq(1,:),LineWidth=1.20)
+hold on
+plot(t,Torq(2,:),LineWidth=1.20)
+plot(t,Torq(3,:),LineWidth=1.20)
+title("Torque: degrau aplicado")
+ylabel('Torque [N.m]')
+xlabel('Tempo [s]')
+legend('T_1','T_2','T_3','Location','east')
+hold off
+grid on

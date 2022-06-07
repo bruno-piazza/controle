@@ -3,8 +3,6 @@ clear
 close
 
 addpath('Matrizes\')
-addpath("Imagens\Controle Moderno\Seguidor de referência constante\")
-
 A = importdata('matrix_A1lin.txt');
 B = importdata('matrix_B1lin.txt');
 C = importdata('matrix_C1.txt');
@@ -42,11 +40,9 @@ w1 = y(:,4,1);
 w2 = y(:,5,2);
 w3 = y(:,6,3);
 
-[psi,theta,phi] = quat2eulang(q0,q1,q2,q3,seq);
-
 figure(1)
+
 plot(t,w1,LineWidth=1.20)
-hold on
 plot(t,w2,LineWidth=1.20)
 plot(t,w3,LineWidth=1.20)
 title("Velocidade angular ao longo do tempo")
@@ -55,37 +51,26 @@ ylabel("Velocidade angular [rad/s]")
 legend('w1','w2','w3')
 hold off
 
-baseFileName = sprintf('Image_%s.png', "w_t");
-fullFileName = fullfile("Imagens\Controle Moderno\Seguidor de referência constante\", baseFileName);
-saveas(1, fullFileName);
-
 figure(2)
-plot(t,q1,LineWidth=1.20)
 hold on
+plot(t,q1,LineWidth=1.20)
 plot(t,q2,LineWidth=1.20)
 plot(t,q3,LineWidth=1.20)
 title("Posição angular em quatérnios ao longo do tempo")
 xlabel("Tempo [s]")
 ylabel("Posição angular [rad]")
-legend('q1','q2','q3','Location','northwest')
+legend('q1','q2','q3')
 hold off
 
-baseFileName = sprintf('Image_%s.png', "quat_t");
-fullFileName = fullfile("Imagens\Controle Moderno\Seguidor de referência constante\", baseFileName);
-saveas(2, fullFileName);
+[psi,theta,phi] = quat2eulang(q0,q1,q2,q3,seq);
 
 figure(3)
-plot(t,psi,LineWidth=1.20)
 hold on
+plot(t,psi,LineWidth=1.20)
 plot(t,theta,LineWidth=1.20)
 plot(t,phi,LineWidth=1.20)
 title("Posição angular em ângulos de Euler ao longo do tempoo")
 xlabel("Tempo [s]")
 ylabel("Posição angular [rad]")
-legend('psi','theta','phi','Location','southeast')
-
-baseFileName = sprintf('Image_%s.png', "euler_t");
-fullFileName = fullfile("Imagens\Controle Moderno\Seguidor de referência constante\", baseFileName);
-saveas(3, fullFileName);
-
+legend('psi','theta','phi')
 hold off

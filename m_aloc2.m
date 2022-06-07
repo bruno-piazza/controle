@@ -36,39 +36,39 @@ sys_aloc = ss(A-B*K,B1*0.025,C,D);
 figure(1)
 pzmap(sys_aloc)
 grid on
-% baseFileName = sprintf('Image_%s.png', "aloc_pol");
-% fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
-% saveas(1, fullFileName);
+baseFileName = sprintf('Image_%s.png', "aloc_pol");
+fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+saveas(1, fullFileName);
 
 
 
-figure(3)
-hold on
-plot(t,y(:,4,2),LineWidth=1.20)
-plot(t,y(:,5,2),LineWidth=1.20)
-plot(t,y(:,6,2),LineWidth=1.20)
-title("Velocidade angular: degrau aplicado")
-xlabel("Tempo [s]")
-ylabel("Velocidade angular [rad/s]")
-legend('w_1','w_2','w_3','Location','east')
-hold off
-grid on
-% baseFileName = sprintf('Image_%s.png', "aloc_vel");
-% fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
-% saveas(3, fullFileName);
-
-
-figure(4)
-hold on
-plot(t,y(:,1,2),LineWidth=1.20)
-plot(t,y(:,2,2),LineWidth=1.20)
-plot(t,y(:,3,2),LineWidth=1.20)
-title("Posição: degrau aplicado")
-xlabel("Tempo [s]")
-ylabel("Posição angular [rad]")
-legend('q_1','q_2','q_3','Location','southeast')
-hold off
-grid on
+% figure(3)
+% hold on
+% plot(t,y(:,4,2),LineWidth=1.20)
+% plot(t,y(:,5,2),LineWidth=1.20)
+% plot(t,y(:,6,2),LineWidth=1.20)
+% title("Velocidade angular: degrau aplicado")
+% xlabel("Tempo [s]")
+% ylabel("Velocidade angular [rad/s]")
+% legend('w_1','w_2','w_3','Location','east')
+% hold off
+% grid on
+% % baseFileName = sprintf('Image_%s.png', "aloc_vel");
+% % fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+% % saveas(3, fullFileName);
+% 
+% 
+% figure(4)
+% hold on
+% plot(t,y(:,1,2),LineWidth=1.20)
+% plot(t,y(:,2,2),LineWidth=1.20)
+% plot(t,y(:,3,2),LineWidth=1.20)
+% title("Posição: degrau aplicado")
+% xlabel("Tempo [s]")
+% ylabel("Posição angular [rad]")
+% legend('q_1','q_2','q_3','Location','southeast')
+% hold off
+% grid on
 % baseFileName = sprintf('Image_%s.png', "aloc_pos");
 % fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 % saveas(4, fullFileName);
@@ -126,10 +126,10 @@ q=[1 0 0 0 0 0 0];
 passo=0.001;
 t=0:passo:15;
 u=zeros(length(t),3);
-u(1:5000,2)=ones(5000,1)
+u(1:5000,2)=ones(5000,1);
 % u(:,1)=zeros(length(t),1);
 % u(:,3)=zeros(length(t),1);
-[y]=lsim(sys_aloc,u,t,q(2:end))
+[y]=lsim(sys_aloc,u,t,q(2:end));
 
 
 
@@ -144,10 +144,9 @@ ylabel("Velocidade angular [rad/s]")
 legend('w_1','w_2','w_3','Location','east')
 hold off
 grid on
-% baseFileName = sprintf('Image_%s.png', "aloc_vel");
-% fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
-% saveas(3, fullFileName);
-% axis([0 12 -0.05 0.2])
+baseFileName = sprintf('Image_%s.png', "aloc_vel");
+fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+saveas(6, fullFileName);
 
 figure(7)
 hold on
@@ -160,7 +159,10 @@ ylabel("Posição angular [rad]")
 legend('q_1','q_2','q_3','Location','southeast')
 hold off
 grid on
-% axis([0 12 0 0.12])
+baseFileName = sprintf('Image_%s.png', "aloc_pos");
+fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+saveas(7, fullFileName);
+
 
 % 
 % [psi,theta,phi] = quat2eulang(q(1),y(:,1),y(:,2),y(:,3),'ZXZ');

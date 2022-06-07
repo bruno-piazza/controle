@@ -3,7 +3,7 @@ clear
 close
 
 addpath('Matrizes\')
-addpath("Imagens\Controle Moderno\Seguidor de referência constante\")
+addpath("Imagens\Controle Moderno\")
 
 A = importdata('matrix_A1lin.txt');
 B = importdata('matrix_B1lin.txt');
@@ -55,8 +55,8 @@ ylabel("Velocidade angular [rad/s]")
 legend('w1','w2','w3')
 hold off
 
-baseFileName = sprintf('Image_%s.png', "w_t");
-fullFileName = fullfile("Imagens\Controle Moderno\Seguidor de referência constante\", baseFileName);
+baseFileName = sprintf('Image_%s.png', "seg_cte_w_t");
+fullFileName = fullfile("Imagens\Controle Moderno\", baseFileName);
 saveas(1, fullFileName);
 
 figure(2)
@@ -70,8 +70,8 @@ ylabel("Posição angular [rad]")
 legend('q1','q2','q3','Location','northwest')
 hold off
 
-baseFileName = sprintf('Image_%s.png', "quat_t");
-fullFileName = fullfile("Imagens\Controle Moderno\Seguidor de referência constante\", baseFileName);
+baseFileName = sprintf('Image_%s.png', "seg_cte_quat_t");
+fullFileName = fullfile("Imagens\Controle Moderno\", baseFileName);
 saveas(2, fullFileName);
 
 figure(3)
@@ -83,9 +83,19 @@ title("Posição angular em ângulos de Euler ao longo do tempoo")
 xlabel("Tempo [s]")
 ylabel("Posição angular [rad]")
 legend('psi','theta','phi','Location','southeast')
+hold off
 
-baseFileName = sprintf('Image_%s.png', "euler_t");
-fullFileName = fullfile("Imagens\Controle Moderno\Seguidor de referência constante\", baseFileName);
+baseFileName = sprintf('Image_%s.png', "seg_cte_euler_t");
+fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 saveas(3, fullFileName);
 
+
+
+figure(4)
+plot(t,K*y(:,:,1)')
+hold on
+plot(t,K*y(:,:,2)')
+plot(t,K*y(:,:,3)')
+legend('e1','e2','e3','Location','southeast')
 hold off
+

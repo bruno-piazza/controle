@@ -126,7 +126,7 @@ q=[1 0 0 0 0 0 0];
 passo=0.001;
 t=0:passo:15;
 u=zeros(length(t),3);
-u(1:5000,:)=ones(5000,3);
+u(1:5000,2)=ones(5000,1);
 % u(:,1)=zeros(length(t),1);
 % u(:,3)=zeros(length(t),1);
 [y]=lsim(sys_aloc,u,t,q(2:end));
@@ -138,13 +138,13 @@ hold on
 plot(t,y(:,4),LineWidth=1.20)
 plot(t,y(:,5),LineWidth=1.20)
 plot(t,y(:,6),LineWidth=1.20)
-title("Velocidade angular: degrau aplicado")
+title("Velocidade angular: pulso aplicado")
 xlabel("Tempo [s]")
 ylabel("Velocidade angular [rad/s]")
 legend('w_1','w_2','w_3','Location','northeast')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "aloc_ut_vel");
+baseFileName = sprintf('Image_%s.png', "aloc_u2_vel");
 fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 saveas(6, fullFileName);
 
@@ -153,13 +153,13 @@ hold on
 plot(t,y(:,1),LineWidth=1.20)
 plot(t,y(:,2),LineWidth=1.20)
 plot(t,y(:,3),LineWidth=1.20)
-title("Posição: degrau aplicado")
+title("Posição: pulso aplicado")
 xlabel("Tempo [s]")
 ylabel("Posição angular [rad]")
 legend('q_1','q_2','q_3','Location','northeast')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "aloc_ut_pos");
+baseFileName = sprintf('Image_%s.png', "aloc_u2_pos");
 fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 saveas(7, fullFileName);
 

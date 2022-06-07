@@ -14,15 +14,15 @@ D = importdata('matrix_D1.txt');
 % %     0 1 0
 % %     0 0 65]
 % 
-Q=[1 0 0 0 0 0    %Aumenta a ação de controle em q1
-    0 1 0 0 0 0     %Aumenta a ação de controle em q2
-    0 0 1 0 0 0     %Aumenta a ação de controle em q3
-    0 0 0 .1 0 0     %Diminui a amplitude da velocidade, mas aumenta a duração do sinal em q1
-    0 0 0 0 1 0     %Diminui a amplitude da velocidade, mas aumenta a duração do sinal em q2
-    0 0 0 0 0 1];
+Q=[.1 0 0 0 0 0    %Aumenta a ação de controle em q1
+    0 .1 0 0 0 0     %Aumenta a ação de controle em q2
+    0 0 .1 0 0 0     %Aumenta a ação de controle em q3
+    0 0 0 .01 0 0     %Diminui a amplitude da velocidade, mas aumenta a duração do sinal em q1
+    0 0 0 0 .01 0     %Diminui a amplitude da velocidade, mas aumenta a duração do sinal em q2
+    0 0 0 0 0 0.01];
 P = [1 0 0
     0 1 0
-    0 0 1]*100;
+    0 0 1]*500;
 
 
 % % Aumentar em Q e diminuir em P ao msm tempo mantem o estado final, mas
@@ -45,10 +45,10 @@ K = lqr(A,B,Q,P);
 B1 = -B*0.2;
 sys_lqr = ss(A-B*K,B1*0,C,D);
 [y,t,x]=step(sys_lqr);
-% 
+
 figure(1)
 pzmap(sys_lqr)
-% 
+
 % figure(2)
 % step(sys_lqr,5)
 % 
@@ -92,12 +92,11 @@ pzmap(sys_lqr)
 % hold off
 % grid on
 
-%q=[1 0 0 0 0 0 0];
-q=[1 1 0 0 0 0 0];
+q=[1 0 0 0 0.15 0.15 0.15];
 passo=0.001;
 t=0:passo:70;
 u=zeros(length(t),3);
-%u(:,2)=ones(length(t),1);
+u(:,2)=ones(length(t),1);
 % u(:,1)=zeros(length(t),1);
 % u(:,3)=zeros(length(t),1);
 [y]=lsim(sys_lqr,u,t,q(2:end));

@@ -76,13 +76,16 @@ legend('q_1','q_2','q_3','Location','east')
 hold off
 grid on
 
+Torq1=-K*y(:,:,1)';
+Torq2=-K*y(:,:,2)';
+Torq3=-K*y(:,:,3)';
 
 figure(5)
-plot(t,K*y(:,1,1)')
+plot(t,Torq1(1,:))
 hold on
-plot(t,K*y(:,2,2)')
-plot(t,K*y(:,3,3)')
-ylabel('Torque Nm')
-legend('e1','e2','e3','Location','east')
+plot(t,Torq2(2,:))
+plot(t,Torq3(3,:))
+ylabel('Torque N.m')
+legend('T_1','T_2','T_3','Location','east')
 hold off
 grid on

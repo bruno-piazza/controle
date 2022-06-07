@@ -14,15 +14,15 @@ D = importdata('matrix_D1.txt');
 % %     0 1 0
 % %     0 0 65]
 % 
-Q=[1 0 0 0 0 0    %Aumenta a ação de controle em q1
-    0 1 0 0 0 0     %Aumenta a ação de controle em q2
-    0 0 1 0 0 0     %Aumenta a ação de controle em q3
-    0 0 0 .1 0 0     %Diminui a amplitude da velocidade, mas aumenta a duração do sinal em q1
-    0 0 0 0 .1 0     %Diminui a amplitude da velocidade, mas aumenta a duração do sinal em q2
-    0 0 0 0 0 .1];
+Q=[.1 0 0 0 0 0    %Aumenta a ação de controle em q1
+    0 .1 0 0 0 0     %Aumenta a ação de controle em q2
+    0 0 .1 0 0 0     %Aumenta a ação de controle em q3
+    0 0 0 .01 0 0     %Diminui a amplitude da velocidade, mas aumenta a duração do sinal em q1
+    0 0 0 0 .01 0     %Diminui a amplitude da velocidade, mas aumenta a duração do sinal em q2
+    0 0 0 0 0 3];
 P = [1 0 0
     0 1 0
-    0 0 65]*100;
+    0 0 15]*800;
 
 
 % % Aumentar em Q e diminuir em P ao msm tempo mantem o estado final, mas
@@ -42,15 +42,15 @@ P = [1 0 0
 %     0 1/100 0           %Diminui a ação de controle em q2
 %     0 0 65]*10;    %Diminui a ação de controle em q3
 K = lqr(A,B,Q,P);
-B1 = [zeros(3,3);eye(3,3)];
-sys_lqr = ss(A-B*K,B1,C,D);
+B1 = -B*0.2;
+sys_lqr = ss(A-B*K,B1*0.025,C,D);
 [y,t,x]=step(sys_lqr);
 
 figure(1)
 pzmap(sys_lqr)
 
 figure(2)
-step(sys_lqr)
+step(sys_lqr,5)
 
 figure(3)
 hold on
@@ -76,13 +76,18 @@ legend('q_1','q_2','q_3','Location','east')
 hold off
 grid on
 
+Torq1=-K*y(:,:,1)';
+Torq2=-K*y(:,:,2)';
+Torq3=-K*y(:,:,3)';
 
 figure(5)
-plot(t,K*y(:,:,1)')
+plot(t,Torq1(1,:),LineWidth=1.20)
 hold on
-plot(t,K*y(:,:,2)')
-plot(t,K*y(:,:,3)')
-ylabel('Torque Nm')
-legend('e1','e2','e3','Location','east')
+plot(t,Torq2(2,:),LineWidth=1.20)
+plot(t,Torq3(3,:),LineWidth=1.20)
+title("Torque: degrau aplicado")
+ylabel('Torque [N.m]')
+xlabel('Tempo [s]')
+legend('T_1','T_2','T_3','Location','east')
 hold off
 grid on

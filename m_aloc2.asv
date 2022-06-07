@@ -138,13 +138,13 @@ hold on
 plot(t,y(:,4),LineWidth=1.20)
 plot(t,y(:,5),LineWidth=1.20)
 plot(t,y(:,6),LineWidth=1.20)
-title("Velocidade angular: degrau aplicado")
+title("Velocidade angular: pulso aplicado")
 xlabel("Tempo [s]")
 ylabel("Velocidade angular [rad/s]")
-legend('w_1','w_2','w_3','Location','east')
+legend('w_1','w_2','w_3','Location','northeast')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "aloc_vel");
+baseFileName = sprintf('Image_%s.png', "aloc_u2_vel");
 fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 saveas(6, fullFileName);
 
@@ -153,15 +153,15 @@ hold on
 plot(t,y(:,1),LineWidth=1.20)
 plot(t,y(:,2),LineWidth=1.20)
 plot(t,y(:,3),LineWidth=1.20)
-title("Posição: degrau aplicado")
+title("Posição: pulso aplicado")
 xlabel("Tempo [s]")
 ylabel("Posição angular [rad]")
-legend('q_1','q_2','q_3','Location','southeast')
+legend('q_1','q_2','q_3','Location','northeast')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "aloc_pos");
+baseFileName = sprintf('Image_%s.png', "aloc_u2_pos");
 fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
-saveas(6, fullFileName);
+saveas(7, fullFileName);
 
 
 % 

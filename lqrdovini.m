@@ -60,7 +60,7 @@ plot(t,y(:,6,3),LineWidth=1.20)
 title("Velocidade angular: degrau aplicado")
 xlabel("Tempo [s]")
 ylabel("Velocidade angular [rad/s]")
-legend('w_1','w_2','w_3','Location','east')
+legend('\omega_1','\omega_2','\omega_3','Location','east')
 hold off
 grid on
 

@@ -35,10 +35,10 @@ sys_aloc = ss(A-B*K,B1,C,D);
 
 figure(1)
 pzmap(sys_aloc)
-grid on
-baseFileName = sprintf('Image_%s.png', "aloc_pol");
-fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
-saveas(1, fullFileName);
+% grid on
+% baseFileName = sprintf('Image_%s.png', "aloc_pol");
+% fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+% saveas(1, fullFileName);
 % 
 % 
 % 
@@ -120,7 +120,7 @@ saveas(1, fullFileName);
 % fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 % saveas(4, fullFileName);
 
-q=[1 0 0 0 0.15 .15 0.15];
+q=[1 0 0 0 0. .15 0.];
 
 
 passo=0.001;
@@ -144,9 +144,9 @@ ylabel("Velocidade angular [rad/s]")
 legend('\omega_1','\omega_2','\omega_3','Location','northeast')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "aloc_wt_vel");
-fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
-saveas(6, fullFileName);
+% baseFileName = sprintf('Image_%s.png', "aloc_wt_vel");
+% fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+% saveas(6, fullFileName);
 
 figure(7)
 hold on
@@ -159,9 +159,9 @@ ylabel("Posição angular [rad]")
 legend('q_1','q_2','q_3','Location','northeast')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "aloc_wt_pos");
-fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
-saveas(7, fullFileName);
+% baseFileName = sprintf('Image_%s.png', "aloc_wt_pos");
+% fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+% saveas(7, fullFileName);
 
 
 % 

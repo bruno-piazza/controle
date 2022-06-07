@@ -22,7 +22,7 @@ Q=[.1 0 0 0 0 0    %Aumenta a ação de controle em q1
     0 0 0 0 0 0.01];
 P = [1 0 0
     0 1 0
-    0 0 1]*500;
+    0 0 50];
 
 
 % % Aumentar em Q e diminuir em P ao msm tempo mantem o estado final, mas
@@ -48,6 +48,10 @@ sys_lqr = ss(A-B*K,B1*0,C,D);
 
 figure(1)
 pzmap(sys_lqr)
+grid on
+baseFileName = sprintf('Image_%s.png', "lqr_pol");
+fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+saveas(1, fullFileName);
 
 % figure(2)
 % step(sys_lqr,5)
@@ -92,11 +96,11 @@ pzmap(sys_lqr)
 % hold off
 % grid on
 
-q=[1 0 0 0 0.15 0.15 0.15];
+q=[1 0 0 0 0 0.15 0];
 passo=0.001;
-t=0:passo:70;
+t=0:passo:15;
 u=zeros(length(t),3);
-u(:,2)=ones(length(t),1);
+%u(:,2)=ones(length(t),1);
 % u(:,1)=zeros(length(t),1);
 % u(:,3)=zeros(length(t),1);
 [y]=lsim(sys_lqr,u,t,q(2:end));
@@ -106,24 +110,32 @@ hold on
 plot(t,y(:,4),LineWidth=1.20)
 plot(t,y(:,5),LineWidth=1.20)
 plot(t,y(:,6),LineWidth=1.20)
-title("Velocidade angular: degrau aplicado")
+title("Velocidade angular: \omega inicial aplicado")
 xlabel("Tempo [s]")
 ylabel("Velocidade angular [rad/s]")
 legend('\omega_1','\omega_2','\omega_3','Location','east')
 hold off
 grid on
+baseFileName = sprintf('Image_%s.png', "lqr_w2_vel");
+fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+saveas(6, fullFileName);
 
 figure(7)
 hold on
 plot(t,y(:,1),LineWidth=1.20)
 plot(t,y(:,2),LineWidth=1.20)
 plot(t,y(:,3),LineWidth=1.20)
-title("Posição: degrau aplicado")
+title("Posição: \omega inicial aplicado")
 xlabel("Tempo [s]")
 ylabel("Posição angular [rad]")
 legend('q_1','q_2','q_3','Location','east')
 hold off
 grid on
+baseFileName = sprintf('Image_%s.png', "lqr_w2_pos");
+fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+saveas(7, fullFileName);
+
+
 
 Torq=-K*y';
 
@@ -133,9 +145,12 @@ plot(t,Torq(1,:),LineWidth=1.20)
 hold on
 plot(t,Torq(2,:),LineWidth=1.20)
 plot(t,Torq(3,:),LineWidth=1.20)
-title("Torque: degrau aplicado")
+title("Torque: \omega inicial aplicado")
 ylabel('Torque [N.m]')
 xlabel('Tempo [s]')
 legend('T_1','T_2','T_3','Location','east')
 hold off
 grid on
+baseFileName = sprintf('Image_%s.png', "lqr_w2_tor");
+fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+saveas(7, fullFileName);

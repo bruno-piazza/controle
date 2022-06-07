@@ -120,7 +120,7 @@ saveas(1, fullFileName);
 % fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 % saveas(4, fullFileName);
 
-q=[1 0 0 0 0 .15 0];
+q=[1 0 0 0 0.15 .15 0.15];
 
 
 passo=0.001;
@@ -138,13 +138,13 @@ hold on
 plot(t,y(:,4),LineWidth=1.20)
 plot(t,y(:,5),LineWidth=1.20)
 plot(t,y(:,6),LineWidth=1.20)
-title("Velocidade angular: pulso aplicado")
+title("Velocidade angular: \omega inicial aplicado")
 xlabel("Tempo [s]")
 ylabel("Velocidade angular [rad/s]")
 legend('\omega_1','\omega_2','\omega_3','Location','northeast')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "aloc_ut_vel");
+baseFileName = sprintf('Image_%s.png', "aloc_wt_vel");
 fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 saveas(6, fullFileName);
 
@@ -153,13 +153,13 @@ hold on
 plot(t,y(:,1),LineWidth=1.20)
 plot(t,y(:,2),LineWidth=1.20)
 plot(t,y(:,3),LineWidth=1.20)
-title("Posição: pulso aplicado")
+title("Posição: \omega inicial aplicado aplicado")
 xlabel("Tempo [s]")
 ylabel("Posição angular [rad]")
 legend('q_1','q_2','q_3','Location','northeast')
 hold off
 grid on
-baseFileName = sprintf('Image_%s.png', "aloc_ut_pos");
+baseFileName = sprintf('Image_%s.png', "aloc_wt_pos");
 fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 saveas(7, fullFileName);
 

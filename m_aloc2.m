@@ -35,58 +35,58 @@ sys_aloc = ss(A-B*K,B1,C,D);
 
 figure(1)
 pzmap(sys_aloc)
-grid on
-baseFileName = sprintf('Image_%s.png', "aloc_pol");
-fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
-saveas(1, fullFileName);
-
-
-
-figure(3)
-hold on
-plot(t,y(:,4,2),LineWidth=1.20)
-plot(t,y(:,5,2),LineWidth=1.20)
-plot(t,y(:,6,2),LineWidth=1.20)
-title("Velocidade angular: degrau aplicado")
-xlabel("Tempo [s]")
-ylabel("Velocidade angular [rad/s]")
-legend('w_1','w_2','w_3','Location','east')
-hold off
-grid on
-% baseFileName = sprintf('Image_%s.png', "aloc_vel");
+% grid on
+% baseFileName = sprintf('Image_%s.png', "aloc_pol");
 % fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
-% saveas(3, fullFileName);
-
-
-figure(4)
-hold on
-plot(t,y(:,1,2),LineWidth=1.20)
-plot(t,y(:,2,2),LineWidth=1.20)
-plot(t,y(:,3,2),LineWidth=1.20)
-title("Posição: degrau aplicado")
-xlabel("Tempo [s]")
-ylabel("Posição angular [rad]")
-legend('q_1','q_2','q_3','Location','southeast')
-hold off
-grid on
-% baseFileName = sprintf('Image_%s.png', "aloc_pos");
-% fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
-% saveas(4, fullFileName);
-
-
-Torq1=-K*y(:,:,1)';
-Torq2=-K*y(:,:,2)';
-Torq3=-K*y(:,:,3)';
-
-figure(5)
-plot(t,Torq1(1,:))
-hold on
-plot(t,Torq2(2,:))
-plot(t,Torq3(3,:))
-ylabel('Torque N.m')
-legend('T_1','T_2','T_3','Location','east')
-hold off
-grid on
+% saveas(1, fullFileName);
+% 
+% 
+% 
+% figure(3)
+% hold on
+% plot(t,y(:,4,2),LineWidth=1.20)
+% plot(t,y(:,5,2),LineWidth=1.20)
+% plot(t,y(:,6,2),LineWidth=1.20)
+% title("Velocidade angular: degrau aplicado")
+% xlabel("Tempo [s]")
+% ylabel("Velocidade angular [rad/s]")
+% legend('w_1','w_2','w_3','Location','east')
+% hold off
+% grid on
+% % baseFileName = sprintf('Image_%s.png', "aloc_vel");
+% % fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+% % saveas(3, fullFileName);
+% 
+% 
+% figure(4)
+% hold on
+% plot(t,y(:,1,2),LineWidth=1.20)
+% plot(t,y(:,2,2),LineWidth=1.20)
+% plot(t,y(:,3,2),LineWidth=1.20)
+% title("Posição: degrau aplicado")
+% xlabel("Tempo [s]")
+% ylabel("Posição angular [rad]")
+% legend('q_1','q_2','q_3','Location','southeast')
+% hold off
+% grid on
+% % baseFileName = sprintf('Image_%s.png', "aloc_pos");
+% % fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+% % saveas(4, fullFileName);
+% 
+% 
+% Torq1=-K*y(:,:,1)';
+% Torq2=-K*y(:,:,2)';
+% Torq3=-K*y(:,:,3)';
+% 
+% figure(5)
+% plot(t,Torq1(1,:))
+% hold on
+% plot(t,Torq2(2,:))
+% plot(t,Torq3(3,:))
+% ylabel('Torque N.m')
+% legend('T_1','T_2','T_3','Location','east')
+% hold off
+% grid on
 
 % 
 % figure(3)
@@ -120,45 +120,45 @@ grid on
 % fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 % saveas(4, fullFileName);
 
-% q=[1 0 0 0 0 0 0];
-% 
-% 
-% passo=0.001;
-% t=0:passo:15;
-% u=zeros(length(t),3)*0.025;
+q=[1 0 0 0 .15 .15 .15];
+
+
+passo=0.001;
+t=0:passo:15;
+u=zeros(length(t),3);
 % u(1:5000,:)=ones(5000,3);
-% % u(:,1)=zeros(length(t),1);
-% % u(:,3)=zeros(length(t),1);
-% [y]=lsim(sys_aloc,u,t,q(2:end));
-% 
-% 
-% 
-% figure(6)
-% hold on
-% plot(t,y(:,4),LineWidth=1.20)
-% plot(t,y(:,5),LineWidth=1.20)
-% plot(t,y(:,6),LineWidth=1.20)
-% title("Velocidade angular: pulso aplicado")
-% xlabel("Tempo [s]")
-% ylabel("Velocidade angular [rad/s]")
-% legend('\omega_1','\omega_2','\omega_3','Location','northeast')
-% hold off
-% grid on
+% u(:,1)=zeros(length(t),1);
+% u(:,3)=zeros(length(t),1);
+[y]=lsim(sys_aloc,u,t,q(2:end));
+
+
+
+figure(6)
+hold on
+plot(t,y(:,4),LineWidth=1.20)
+plot(t,y(:,5),LineWidth=1.20)
+plot(t,y(:,6),LineWidth=1.20)
+title("Velocidade angular: pulso aplicado")
+xlabel("Tempo [s]")
+ylabel("Velocidade angular [rad/s]")
+legend('\omega_1','\omega_2','\omega_3','Location','northeast')
+hold off
+grid on
 % baseFileName = sprintf('Image_%s.png', "aloc_ut_vel");
 % fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 % saveas(6, fullFileName);
-% 
-% figure(7)
-% hold on
-% plot(t,y(:,1),LineWidth=1.20)
-% plot(t,y(:,2),LineWidth=1.20)
-% plot(t,y(:,3),LineWidth=1.20)
-% title("Posição: pulso aplicado")
-% xlabel("Tempo [s]")
-% ylabel("Posição angular [rad]")
-% legend('q_1','q_2','q_3','Location','northeast')
-% hold off
-% grid on
+
+figure(7)
+hold on
+plot(t,y(:,1),LineWidth=1.20)
+plot(t,y(:,2),LineWidth=1.20)
+plot(t,y(:,3),LineWidth=1.20)
+title("Posição: pulso aplicado")
+xlabel("Tempo [s]")
+ylabel("Posição angular [rad]")
+legend('q_1','q_2','q_3','Location','northeast')
+hold off
+grid on
 % baseFileName = sprintf('Image_%s.png', "aloc_ut_pos");
 % fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 % saveas(7, fullFileName);

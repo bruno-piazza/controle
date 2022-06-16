@@ -1,25 +1,35 @@
+% Seguidor de referência variante
+
 clc
 clear
 close all
 
 addpath('Matrizes\')
+addpath("Imagens\Controle Moderno\")
+
+%Importa matrizes
 A = importdata('matrix_A1lin.txt');
-B1 = [zeros(3,6);zeros(3,3) eye(3,3)]*1;
+B1 = [zeros(3,6);zeros(3,3) eye(3,3)];
 B2 = importdata('matrix_B1lin.txt');
 C = importdata('matrix_C1.txt');
 D = importdata('matrix_D1.txt');
 
+% Define a referência constante
 x_r = [pi/3 pi/4 pi/5 0 0 0];
 seq = 'ZXZ';
 q_r = angle2quat(x_r(1),x_r(2),x_r(3),seq);
 xq_r = [q_r(2:4),x_r(4:6)];
 
+% Regulador por alocação de polos
 p1 = -0.3+0.3i;
 p2 = -0.4+0.3i;
 p = [p1 conj(p1) p2 conj(p2) -0.5 -0.4];
 K = place(A,B2,p);
 F = A-B2*K;
 
+wd = 2;
+
+% Matrizes de referência e disturbios
 A_r = [0 0 0 1/2 0 0;
     0 0 0 0 1/2 0;
     0 0 0 0 0 -1/2; 
@@ -41,11 +51,13 @@ K_ex = inv(C_bar*inv(F)*B2)*C_bar*inv(F)*F2;
 
 A_y = [B1 B2*K]-B2*K_ex;
 
+% Definição do sistema
 A_bar = [F A_y;zeros(12,6) A_o];
 x_bar_0 = [0 0 0 0 0 0 ...
     0 0 0 0 0 0 ...
-    xq_r(1) xq_r(2) xq_r(3) 0 0 0 ]';
+    xq_r(1) xq_r(2) xq_r(3) 0 0 0]';
 
+% Simulação do sistema
 sys = ss(A_bar,x_bar_0,A_bar,x_bar_0);
 [y,t]=step(sys,30);
 
@@ -64,6 +76,7 @@ plot(t,w1,LineWidth=1.20)
 hold on
 plot(t,w2,LineWidth=1.20)
 plot(t,w3,LineWidth=1.20)
+grid on
 title("Velocidade angular ao longo do tempo")
 xlabel("Tempo [s]")
 ylabel("Velocidade angular [rad/s]")
@@ -79,6 +92,7 @@ plot(t,q1,LineWidth=1.20)
 hold on
 plot(t,q2,LineWidth=1.20)
 plot(t,q3,LineWidth=1.20)
+grid on
 title("Posição angular em quatérnios ao longo do tempo")
 xlabel("Tempo [s]")
 ylabel("Posição angular [rad]")
@@ -94,6 +108,7 @@ plot(t,psi,LineWidth=1.20)
 hold on
 plot(t,theta,LineWidth=1.20)
 plot(t,phi,LineWidth=1.20)
+grid on
 title("Posição angular em ângulos de Euler ao longo do tempoo")
 xlabel("Tempo [s]")
 ylabel("Posição angular [rad]")

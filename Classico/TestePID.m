@@ -18,22 +18,22 @@ Num=Num(3,:);
 sys=tf(Num,Dem);
 
 %% Mapa de polos e zeros
-figure(1)
+figure(2)
 pzmap(sys)
 
-figure(2)
+figure(3)
 pzmap(sysss)
 
 %% Margem de ganho e fase
 
-figure(3)
+figure(4)
 margin(sys)
 grid on
 
 %% Diagrama de Nyquist
-figure(4)
-nyquist(sys)
 figure(5)
+nyquist(sys)
+figure(1)
 Closed_Logarithmic_Nyquist(sys)
 
 %% Lugar das raízes

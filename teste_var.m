@@ -13,6 +13,7 @@ B2 = importdata('matrix_B1lin.txt');
 B1 = -B2;
 C = importdata('matrix_C1.txt');
 D = importdata('matrix_D1.txt');
+t = 0:0.1:60;
 
 % Define a referência constante
 x_r = [pi/3 pi/4 pi/5 0 0 0];
@@ -26,7 +27,7 @@ p2 = -0.4+0.3i;
 p = [p1 conj(p1) p2 conj(p2) -0.5 -0.4];
 K = place(A,B2,p);
 F = A-B2*K;
-T=40;
+
 % Matrizes de referência e disturbios
 A_r = [0 0 0 1/2 0 0;
     0 0 0 0 1/2 0;
@@ -54,21 +55,31 @@ A_y = [B1 B2*K]-B2*K_ex;
 A_bar = [F A_y;zeros(9,6) A_o];
 x_bar_0 = [0 0 0 0 0 0 ...
     0 0 0 ...
-    xq_r(1) xq_r(2) xq_r(3) 0 0 0]';
+    0 0 0 xq_r(1) xq_r(2)/30 xq_r(3)/30]';
+
+
+% HAGA
+% t = 0:1:60;
+% B_bar = zeros(15,1);
+% C_bar = eye(15);
+% D_bar = zeros(15,1);
+% sys_haga = ss(A_bar,B_bar,C_bar,D_bar,0);
+% 
+% u = zeros(length(t),1);
+% y = lsim(sys_haga,u,t);
+% 
 
 % Simulação do sistema
 sys = ss(A_bar,x_bar_0,A_bar,x_bar_0);
-[y,t]=step(sys,60);
-
-
+[y,t]=step(sys,t);
 
 q0 = q_r(1);
-q1 = y(:,1);
-q2 = y(:,2);
-q3 = y(:,3);
-w1 = y(:,4);
-w2 = y(:,5);
-w3 = y(:,6);
+q1 = y(:,10);
+q2 = y(:,11);
+q3 = y(:,12);
+w1 = y(:,13);
+w2 = y(:,14);
+w3 = y(:,15);
 
 [psi,theta,phi] = quat2eulang(q0,q1,q2,q3,seq);
 

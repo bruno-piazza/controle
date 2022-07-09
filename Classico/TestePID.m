@@ -17,8 +17,6 @@ sysss=ss(A,B,C,D);
 Num=Num(3,:);
 sys=tf(Num,Dem);
 
-RouthHurwitz(Dem)
-
 %% Mapa de polos e zeros
 figure(1)
 pzmap(sys)
@@ -32,8 +30,16 @@ figure(3)
 margin(sys)
 grid on
 
-
+%% Diagrama de Nyquist
+figure(4)
+nyquist(sys)
+figure(5)
+Closed_Logarithmic_Nyquist(sys)
 
 %% Lugar das raízes
-figure(5)
+figure(6)
 rlocus(sys)
+
+%% Degrau
+figure(7)
+step(sys)

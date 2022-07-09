@@ -10,7 +10,7 @@ C = importdata('matrix_C1.txt');
 D = importdata('matrix_D1.txt');
 
 %% Construção do sistema via espaço de estados
-sysss=ss(A,B,C,D);
+sysSS=ss(A,B,C,D);
 
 %% Construção da função de transferência de malha aberta (q3->Rot Própria)
 [Num,Dem] = ss2tf(A,B,C,D,3);
@@ -22,7 +22,7 @@ figure(2)
 pzmap(sys)
 
 figure(3)
-pzmap(sysss)
+pzmap(sysSS)
 
 %% Margem de ganho e fase
 
@@ -40,6 +40,6 @@ Closed_Logarithmic_Nyquist(sys)
 figure(6)
 rlocus(sys)
 
-%% Degrau
+%% Resposta ao degrau
 figure(7)
 step(sys)

@@ -43,3 +43,4 @@ rlocus(sys)
 %% Resposta ao degrau
 figure(7)
 step(sys)
+grid on

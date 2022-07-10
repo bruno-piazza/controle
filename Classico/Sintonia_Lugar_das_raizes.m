@@ -21,9 +21,11 @@ N=tf(Num,1);
 D=tf(Dem,1);
 s=tf([1 0],1);
 
+Gc=compensador2P(-0.5+1i,Dem);
+sys=series(Gc,sys)
 %% Sintonia proporcional
 close all
-clc
+
 
 figure(1)
 rlocus(sys)

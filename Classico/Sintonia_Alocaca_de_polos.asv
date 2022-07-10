@@ -8,6 +8,7 @@ A = importdata('matrix_A1lin.txt');
 B = -importdata('matrix_B1lin.txt');
 C = importdata('matrix_C1.txt');
 D = importdata('matrix_D1.txt');
+t = 0:0.01:10;
 
 %% Construção do sistema via espaço de estados
 sysSS=ss(A,B,C,D);
@@ -29,7 +30,15 @@ p5 = -1.5 + 0.3i;
 p6 = conj(p5);
 p7 = -0.5;
 
-%% MMQ
+p1 = -1 + 0.3i;
+p2 = conj(p1);
+p3 = 0;
+p4 = 0;
+p5 = 0;
+p6 = 0;
+p7 = 0;
+
+%% Cálculo dos ganhos pelo método dos mínimos quadrados
 
 Num = flip(Num);
 Den = flip(Den);
@@ -52,25 +61,43 @@ b = [(p1*p2*p3*p4*p5*p6*p7)*Den(7);...
     (p1 + p2 + p3 + p4 + p5 + p6 + p7)*(Den(7)-Den(6))];
 
 Ks = lsqr(a,b);
+ki_lsqr = norm(Ks(1));
+kp_lsqr = norm(Ks(2));
+kd_lsqr = norm(Ks(3));
+Gc_lsqr = pid(kp_lsqr,ki_lsqr,kd_lsqr); 
+u_lsqr = series(Gc_lsqr,sys); 
+sys_lsqr = feedback(u_lsqr,1);
 
-ki_norm = norm(Ks(1));
-kp_norm = norm(Ks(2));
-kd_norm = norm(Ks(3));
+%% Cálculo dos ganhos de forma analítica
+ki = (1/Num(5))*(-p1*p2*p3 - p1*p2*p4 - p1*p3*p4 - p2*p3*p4 - p1*p2*p5 -... 
+  p1*p3*p5 - p2*p3*p5 - p1*p4*p5 - p2*p4*p5 - p3*p4*p5 - p1*p2*p6 - ...
+  p1*p3*p6 - p2*p3*p6 - p1*p4*p6 - p2*p4*p6 - p3*p4*p6 - p1*p5*p6 - ...
+  p2*p5*p6 - p3*p5*p6 - p4*p5*p6 - p1*p2*p7 - p1*p3*p7 - p2*p3*p7 - ...
+  p1*p4*p7 - p2*p4*p7 - p3*p4*p7 - p1*p5*p7 - p2*p5*p7 - p3*p5*p7 - ...
+  p4*p5*p7 - p1*p6*p7 - p2*p6*p7 - p3*p6*p7 - p4*p6*p7 - p5*p6*p7);
+kp = (1/Num(5))*(p1*p2 + p1*p3 + p2*p3 + p1*p4 + p2*p4 + p3*p4 + p1*p5 + p2*p5 +... 
+   p3*p5 + p4*p5 + p1*p6 + p2*p6 + p3*p6 + p4*p6 + p5*p6 + p1*p7 + ...
+   p2*p7 + p3*p7 + p4*p7 + p5*p7 + p6*p7);
+kd = (-p1 - p2 - p3 - p4 - p5 - p6 - p7)/n4
+ki_ana = 0.124424;
+kp_ana = 0.130774;
+kd_ana = 0.0595331;
+Gc_ana = pid(kp_ana,ki_ana,kd_ana); 
+u_ana = series(Gc_ana,sys); 
+sys_ana = feedback(u_ana,1);
+y_ana = step(sys_ana,t);
 
-ki_real = abs(real(Ks(1)));
-kp_real = abs(real(Ks(2)));
-kd_real = abs(real(Ks(3)));
+figure(1)
+pzmap(sys_ana)
 
-Gc_norm = pid(kp_norm,ki_norm,kd_norm); 
-u_norm = series(Gc_norm,sys); 
-sys_norm = feedback(u_norm,1);
+figure(2)
+pzmap(sys_lsqr)
 
-[y_norm] = step(sys_norm,10);
-
-Gc_real = pid(kp_real,ki_real,kd_real); 
-u_real = series(Gc_real,sys); 
-sys_real = feedback(u_real,1);
-[y_real] = step(sys_real);
+figure(3)
+plot(t,y_lsqr)
+hold on
+plot(t,y_ana)
+legend("Least Square","Analítico")
 
 
 

@@ -13,9 +13,9 @@ D = importdata('matrix_D1.txt');
 sysSS=ss(A,B,C,D);
 
 %% Construção da função de transferência de malha aberta (q3->Rot Própria)
-[Num,Dem] = ss2tf(A,B,C,D,3);
+[Num,Den] = ss2tf(A,B,C,D,3);
 Num=Num(3,:);
-sys=tf(Num,Dem);
+sys=tf(Num,Den);
 
 %% Mapa de polos e zeros
 figure(2)

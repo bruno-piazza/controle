@@ -14,17 +14,17 @@ D = importdata('matrix_D1.txt');
 sysSS=ss(A,B,C,D);
 
 %% Construção da função de transferência de malha aberta (q3->Rot Própria)
-[Num,Den] = ss2tf(A,B,C,D,3);
+[Num,Dem] = ss2tf(A,B,C,D,3);
 Num=Num(3,:);
-sys=tf(Num,Den);
+sys=tf(Num,Dem);
 N=tf(Num,1);
-D=tf(Den,1);
+D=tf(Dem,1);
 s=tf([1 0],1);
 
-Gc=compensador2P(-0.5+1i,Den);
+Gc=compensador2P(-0.5+1i,Dem);
 sys=series(Gc,sys)
 
-figure(643)
+figute(643)
 step(sys)
 %% Sintonia proporcional
 close all

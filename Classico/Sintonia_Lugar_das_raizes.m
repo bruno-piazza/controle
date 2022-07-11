@@ -161,6 +161,8 @@ pzmap(syskdmfKc);
 
 
 %% Plots oficiais
+close all
+
 figure(51)
 plot(T,yLR,'linewidth',1.3)
 hold on
@@ -181,3 +183,32 @@ legend('Sem compensador','Com compensador','location','northeast')
 baseFileName = sprintf('Image_%s.png', "Bode_LR");
 fullFileName = fullfile("Imagens\", baseFileName);
 saveas(52, fullFileName);
+
+figure(2)
+margin(syskdmf)
+hold on
+margin(syskdmfKc)
+grid on
+legend('Sem compensador','Com compensador','location','northeast')
+baseFileName = sprintf('Image_%s.png', "Margem_LR");
+fullFileName = fullfile("Imagens\", baseFileName);
+saveas(2, fullFileName);
+% 
+% figure(1)
+% Closed_Logarithmic_Nyquist(syskdmf)
+
+% figure(3)
+% Closed_Logarithmic_Nyquist(syskdmfKc)
+
+figure(4)
+pzmap(syskdmf)
+baseFileName = sprintf('Image_%s.png', "PZ_LR");
+fullFileName = fullfile("Imagens\", baseFileName);
+saveas(4, fullFileName);
+
+
+figure(5)
+pzmap(syskdmfKc)
+baseFileName = sprintf('Image_%s.png', "PZ_LR_comp");
+fullFileName = fullfile("Imagens\", baseFileName);
+saveas(5, fullFileName);

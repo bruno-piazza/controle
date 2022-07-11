@@ -1,32 +1,33 @@
-% Seguidor de referência constante
+%% Seguidor de referência constante
 
 clc
 clear
 close
 
+%% Importa matrizes
+
 addpath('Matrizes\')
 addpath("Imagens\Controle Moderno\")
 
-%Importa matrizes
 A = importdata('matrix_A1lin.txt');
 B = importdata('matrix_B1lin.txt');
 C = importdata('matrix_C1.txt');
 D = importdata('matrix_D1.txt');
 
-% Define a referência constante
+%% Define a referência constante
 x_ref = [pi/4 pi/6 pi/3 0 0 0];
 seq = 'ZXZ';
 q_ref = angle2quat(x_ref(1),x_ref(2),x_ref(3),seq);
 xq_ref = [q_ref(2:4),x_ref(4:6)];
 
-% Regulador por alocação de polos
+%% Regulador por alocação de polos
 p1=-0.3+0.3i;
 p2=-0.4+0.3i;
 p = [p1 conj(p1) p2 conj(p2) -0.5 -0.4];
 K = place(A,B,p);
 F = A-B*K;
 
-% Cálculo da entrada em regime permanente
+%% Cálculo da entrada em regime permanente
 Gamma = [A,B;C,D];
 B_ls = [zeros(6,6);eye(3,6);zeros(3,6)];
 N = linsolve(Gamma,B_ls);
@@ -36,7 +37,7 @@ u_rp = (Nu+K*Nx)*xq_ref';
 B2 = B;
 B2(4:6,:) = B2(4:6,:).*u_rp;
 
-% Simulação do sistema
+%% Simulação do sistema
 sys_aloc = ss(F,B2,C,D);
 [y,t,x]=step(sys_aloc,30);
 

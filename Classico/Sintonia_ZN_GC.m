@@ -65,7 +65,7 @@ grid on
 title('Resposta à entrada do tipo degrau')
 xlabel('Tempo [s]')
 ylabel('Posição angular [rad]')
-baseFileName = sprintf('Image_%s.png', "ZN");
+baseFileName = sprintf('Image_%s.png', "ZN_step");
 fullFileName = fullfile("Imagens\", baseFileName);
 saveas(51, fullFileName);
 

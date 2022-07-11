@@ -125,4 +125,19 @@ xlabel('Tempo [s]')
 ylabel('Posição angular [rad]')
 baseFileName = sprintf('Image_%s.png', "ZN");
 fullFileName = fullfile("Imagens\", baseFileName);
-saveas(51, fullFileName);
+saveas(5, fullFileName);
+
+
+%% Plot malha aberta
+yma=step(sys,t)
+figure(6)
+plot(t,yma,'linewidth',1.3)
+grid on
+title('Resposta à entrada do tipo degrau')
+xlabel('Tempo [s]')
+ylabel('Posição angular [rad]')
+baseFileName = sprintf('Image_%s.png', "MA-step");
+fullFileName = fullfile("Imagens\", baseFileName);
+saveas(6, fullFileName);
+
+rlocus(sys)

@@ -10,6 +10,7 @@ B = -importdata('matrix_B1lin.txt');
 C = importdata('matrix_C1.txt');
 D = importdata('matrix_D1.txt');
 
+T=0:0.01:10;
 %% Construção do sistema via espaço de estados
 sysSS=ss(A,B,C,D);
 
@@ -88,7 +89,7 @@ a=series(Gkd,sys);
 syskdmf=feedback(a,1)
 
 figure(42)
-[yLR,tLR]=step(syskdmf) 
+[yLR]=step(syskdmf,T); 
 stepinfo(syskdmf)
 
 figure(43)
@@ -105,73 +106,83 @@ figure(102)
 pzmap(sysKc)
 %% Sintonia proporcional
 figure(111)
-rlocus(sys)
+rlocus(sysKc)
 
 %% Sintonia proporcional (continuação)
-kp=0.01; %Utilizar o mais adequado a partir do lugar das raizes anterior
-Gkp=pid(kp,0,0); 
-a=series(Gkp,sys); 
-syskpmf=feedback(a,1)
+kpKc=0.01; %Utilizar o mais adequado a partir do lugar das raizes anterior
+GkpKc=pid(kpKc,0,0); 
+a=series(GkpKc,sys); 
+syskpmfKc=feedback(a,1)
 
 figure(112)
-step(syskpmf);
+step(syskpmfKc);
 
 figure(113)
-pzmap(syskpmf);
+pzmap(syskpmfKc);
  
 
 %% Sintonia integrativa
-syskima=(N/(s*(D+(kp*N))));
+syskimaKc=(N/(s*(D+(kp*N))));
 
 figure(131)
-rlocus(syskima)
+rlocus(syskimaKc)
 
 %% Sintonia integrativa (continuação)
-ki=0; %Utilizar o mais adequado a partir do lugar das raizes anterior
-Gki=pid(kp,ki,0); 
-a=series(Gki,sys); 
-syskimf=feedback(a,1)
+kiKc=0; %Utilizar o mais adequado a partir do lugar das raizes anterior
+GkiKc=pid(kpKc,kiKc,0); 
+a=series(GkiKc,sysKc); 
+syskimfKc=feedback(a,1)
 
 figure(132)
-step(syskimf); 
+step(syskimfKc); 
 
 figure(133)
-pzmap(syskimf);
+pzmap(syskimfKc);
 
 %% Sintonia derivativa
-syskdma=((N*(s^2))/(s*D+(kp*s*N)+(ki*N)));
+syskdmaKc=((N*(s^2))/(s*D+(kp*s*N)+(ki*N)));
 
 figure(141)
-rlocus(syskdma)
+rlocus(syskdmaKc)
 
 %% Sintonia derivativa (continuação)
-kd=0.0199; %Utilizar o mais adequado a partir do lugar das raizes anterior
-Gkd=pid(kp,ki,kd); 
-a=series(Gkd,sys); 
-syskdmf=feedback(a,1)
+kdKc=0.0199; %Utilizar o mais adequado a partir do lugar das raizes anterior
+GkdKc=pid(kpKc,kiKc,kdKc); 
+a=series(GkdKc,sysKc); 
+syskdmfKc=feedback(a,1)
 
 figure(142)
-[yLR,tLR]=step(syskdmf) 
-stepinfo(syskdmf)
+[yLRKc]=step(syskdmfKc,T); 
+stepinfo(syskdmfKc)
 
 figure(143)
-pzmap(syskdmf); 
-
-
-
-
-
+pzmap(syskdmfKc); 
 
 
 
 %% Plots oficiais
 figure(51)
-plot(tLR,yLR,'linewidth',1.3)
+plot(T,yLR,'linewidth',1.3)
+hold on
+plot(T,yLRKc,'linewidth',1.3)
 grid on
 title('Resposta à entrada do tipo degrau')
 xlabel('Tempo [s]')
 ylabel('Posição angular [rad]')
+legend('Sem compensador','Com compensador','location','southeast')
+baseFileName = sprintf('Image_%s.png', "LR");
+fullFileName = fullfile("Imagens\", baseFileName);
+saveas(51, fullFileName);
 
+figure(52)
+bodeplot(syskdmf,'linewidth',1.3)
+hold on
+bodeplot(syskdmfKc,'linewidth',1.3)
+grid on
+title('Resposta à entrada do tipo degrau')
+xlabel('Tempo [s]')
+ylabel('Posição angular [rad]')
+legend('Sem compensador','Com compensador','location','southeast')
 baseFileName = sprintf('Image_%s.png', "LR");
 fullFileName = fullfile("Imagens\", baseFileName);
 saveas(51, fullFileName);

@@ -173,3 +173,11 @@ legend('Sem compensador','Com compensador','location','southeast')
 baseFileName = sprintf('Image_%s.png', "LR");
 fullFileName = fullfile("Imagens\", baseFileName);
 saveas(51, fullFileName);
+
+figure(52)
+bode(syskdmf,syskdmfKc)
+grid on
+legend('Sem compensador','Com compensador','location','northeast')
+baseFileName = sprintf('Image_%s.png', "Bode_LR");
+fullFileName = fullfile("Imagens\", baseFileName);
+saveas(52, fullFileName);

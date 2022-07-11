@@ -46,7 +46,7 @@ figure(11)
 rlocus(sys)
 
 %% Sintonia proporcional (continuação)
-kp=0.01; %Utilizar o mais adequado a partir do lugar das raizes anterior
+kp=0.01 %Utilizar o mais adequado a partir do lugar das raizes anterior
 Gkp=pid(kp,0,0); 
 a=series(Gkp,sys); 
 syskpmf=feedback(a,1)
@@ -65,7 +65,7 @@ figure(31)
 rlocus(syskima)
 
 %% Sintonia integrativa (continuação)
-ki=0; %Utilizar o mais adequado a partir do lugar das raizes anterior
+ki=0 %Utilizar o mais adequado a partir do lugar das raizes anterior
 Gki=pid(kp,ki,0); 
 a=series(Gki,sys); 
 syskimf=feedback(a,1)
@@ -83,7 +83,7 @@ figure(41)
 rlocus(syskdma)
 
 %% Sintonia derivativa (continuação)
-kd=0.0199; %Utilizar o mais adequado a partir do lugar das raizes anterior
+kd=0.0199 %Utilizar o mais adequado a partir do lugar das raizes anterior
 Gkd=pid(kp,ki,kd); 
 a=series(Gkd,sys); 
 syskdmf=feedback(a,1)
@@ -109,7 +109,7 @@ figure(111)
 rlocus(sysKc)
 
 %% Sintonia proporcional (continuação)
-kpKc=0.01; %Utilizar o mais adequado a partir do lugar das raizes anterior
+kpKc=0.01 %Utilizar o mais adequado a partir do lugar das raizes anterior
 GkpKc=pid(kpKc,0,0); 
 a=series(GkpKc,sys); 
 syskpmfKc=feedback(a,1)
@@ -128,7 +128,7 @@ figure(131)
 rlocus(syskimaKc)
 
 %% Sintonia integrativa (continuação)
-kiKc=0; %Utilizar o mais adequado a partir do lugar das raizes anterior
+kiKc=0 %Utilizar o mais adequado a partir do lugar das raizes anterior
 GkiKc=pid(kpKc,kiKc,0); 
 a=series(GkiKc,sysKc); 
 syskimfKc=feedback(a,1)
@@ -146,7 +146,7 @@ figure(141)
 rlocus(syskdmaKc)
 
 %% Sintonia derivativa (continuação)
-kdKc=0.0199; %Utilizar o mais adequado a partir do lugar das raizes anterior
+kdKc=0.0199 %Utilizar o mais adequado a partir do lugar das raizes anterior
 GkdKc=pid(kpKc,kiKc,kdKc); 
 a=series(GkdKc,sysKc); 
 syskdmfKc=feedback(a,1)

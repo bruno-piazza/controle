@@ -3,7 +3,7 @@ clc
 clear
 close all
 %% Parâmetros do sistema
-
+addpath('Matrizes\')
 A = importdata('matrix_A1lin.txt');
 B = -importdata('matrix_B1lin.txt');
 C = importdata('matrix_C1.txt');
@@ -82,12 +82,6 @@ sys_ana = feedback(u_ana,1);
 y_ana = step(sys_ana,t);
 
 figure(1)
-pzmap(sys_ana)
-
-figure(2)
-pzmap(sys_lsqr)
-
-figure(3)
 plot(t,y_lsqr)
 hold on
 plot(t,y_ana)
@@ -99,6 +93,26 @@ legend("Least Square","Analítico")
 
 baseFileName = sprintf('Image_%s.png', "aloc_class");
 fullFileName = fullfile("Imagens\", baseFileName);
+saveas(1, fullFileName);
+
+%% Mapa de polos e zeros
+figure(2)
+pzmap(sys_ana)
+
+baseFileName = sprintf('Image_%s.png', "aloc_class_polos");
+fullFileName = fullfile("Imagens\", baseFileName);
+saveas(2, fullFileName);
+%% Margem de ganho e fase
+
+figure(3)
+margin(sys_ana)
+grid on
+
+baseFileName = sprintf('Image_%s.png', "aloc_class_ganho_fase");
+fullFileName = fullfile("Imagens\", baseFileName);
 saveas(3, fullFileName);
 
+%% Diagrama de Nyquist
+figure(4)
+nyquist(sys_ana)
 

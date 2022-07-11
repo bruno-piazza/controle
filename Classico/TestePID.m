@@ -5,7 +5,7 @@ close all
 addpath('Matrizes\')
 
 A = importdata('matrix_A1lin.txt');
-B = importdata('matrix_B1lin.txt');
+B = -importdata('matrix_B1lin.txt');
 C = importdata('matrix_C1.txt');
 D = importdata('matrix_D1.txt');
 

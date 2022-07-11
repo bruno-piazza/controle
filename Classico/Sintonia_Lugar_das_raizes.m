@@ -6,7 +6,7 @@ close all
 addpath('Matrizes\')
 
 A = importdata('matrix_A1lin.txt');
-B = importdata('matrix_B1lin.txt');
+B = -importdata('matrix_B1lin.txt');
 C = importdata('matrix_C1.txt');
 D = importdata('matrix_D1.txt');
 
@@ -21,7 +21,7 @@ N=tf(Num,1);
 D=tf(Den,1);
 s=tf([1 0],1);
 
-Gc=compensador2P(-0.5+1i,Den);
+[Gc,Kc]=compensador2P(-0.5+1i,Den)
 sys=series(Gc,sys)
 
 figure(643)
@@ -34,7 +34,7 @@ figure(1)
 rlocus(sys)
 
 %% Sintonia proporcional (continuação)
-kp=-1; %Utilizar o mais adequado a partir do lugar das raizes anterior
+kp=.1; %Utilizar o mais adequado a partir do lugar das raizes anterior
 Gkp=pid(kp,0,0); 
 a=series(Gkp,sys); 
 syskpmf=feedback(a,1);
@@ -67,7 +67,7 @@ figure(5)
 rlocus(syskdma)
 
 %% Sintonia derivativa (continuação)
-kd=-0.2; %Utilizar o mais adequado a partir do lugar das raizes anterior
+kd=0.06; %Utilizar o mais adequado a partir do lugar das raizes anterior
 Gkd=pid(kp,ki,kd); 
 a=series(Gkd,sys); 
 syskdmf=feedback(a,1);

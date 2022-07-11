@@ -1,4 +1,4 @@
-function C=compensador2P(LR,D)
+function [C,K]=compensador2P(LR,D)
 %% Setup das variáveis
 P=roots(D);
 %Polo 1
@@ -26,7 +26,7 @@ Zc=LRr-(tand(angaux-phi/2)*LRi);
 Pc=LRr-(tand(angaux+phi/2)*LRi);
 
 %% Cálculo do ganho
-K=-abs(polyval(D,LR)*polyval([1 -Pc],LR)/polyval([1 -Zc],LR));
+K=abs(polyval(D,LR)*polyval([1 -Pc],LR)/polyval([1 -Zc],LR));
 % D(end-1)=D(end-1)+1;
 % D(end)=D(end)+Pc
 %% FT do compensador

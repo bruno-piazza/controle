@@ -3,6 +3,7 @@ clc
 clear
 close all
 %% Parâmetros do sistema
+addpath('Matrizes\')
 
 A = importdata('matrix_A1lin.txt');
 B = -importdata('matrix_B1lin.txt');

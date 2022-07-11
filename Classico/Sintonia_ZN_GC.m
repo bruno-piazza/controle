@@ -54,3 +54,6 @@ figure(42)
 step(sysZN,t);
 grid on
 stepinfo(sysZN)
+
+figure(5)
+pzmap(sysZN)

@@ -1,4 +1,4 @@
-%% Sintonia por Lugar das Raízes (Executar célula por célula)
+% Sintonia por Lugar das Raízes (Executar célula por célula)
 clc
 clear all
 close all
@@ -10,6 +10,7 @@ B = -importdata('matrix_B1lin.txt');
 C = importdata('matrix_C1.txt');
 D = importdata('matrix_D1.txt');
 
+T=0:0.01:10;
 %% Construção do sistema via espaço de estados
 sysSS=ss(A,B,C,D);
 
@@ -17,64 +18,158 @@ sysSS=ss(A,B,C,D);
 [Num,Den] = ss2tf(A,B,C,D,3);
 Num=Num(3,:);
 
+% Num=[1 1];
+% Den=[1 3 12 -16 0]
+
 sys=tf(Num,Den);
 N=tf(Num,1);
 D=tf(Den,1);
 s=tf([1 0],1);
 
-[Gc,Kc]=compensador2P(-0.5+1i,Den)
-sys=series(Gc,sys)
+% [Gc,Kc]=compensador2P(-0.5+1i,Den)
+% sys=series(Gc,sys)
 
 
 
-figure(643)
+figure(1)
 step(sys)
+grid on
+
+figure(2)
+pzmap(sys)
 %% Sintonia proporcional
 
 
 
 
-figure(1)
+figure(11)
 rlocus(sys)
 
 %% Sintonia proporcional (continuação)
-kp=1; %Utilizar o mais adequado a partir do lugar das raizes anterior
+kp=0.01; %Utilizar o mais adequado a partir do lugar das raizes anterior
 Gkp=pid(kp,0,0); 
 a=series(Gkp,sys); 
 syskpmf=feedback(a,1)
 
-figure(10)
-pzmap(syskpmf);
+figure(12)
+step(syskpmf);
 
-figure(2)
-step(syskpmf); 
+figure(13)
+pzmap(syskpmf);
+ 
 
 %% Sintonia integrativa
 syskima=(N/(s*(D+(kp*N))));
 
-figure(3)
+figure(31)
 rlocus(syskima)
 
 %% Sintonia integrativa (continuação)
 ki=0; %Utilizar o mais adequado a partir do lugar das raizes anterior
 Gki=pid(kp,ki,0); 
 a=series(Gki,sys); 
-syskimf=feedback(a,1);
+syskimf=feedback(a,1)
 
-figure(4)
+figure(32)
 step(syskimf); 
+
+figure(33)
+pzmap(syskimf);
 
 %% Sintonia derivativa
 syskdma=((N*(s^2))/(s*D+(kp*s*N)+(ki*N)));
 
-figure(5)
+figure(41)
 rlocus(syskdma)
 
 %% Sintonia derivativa (continuação)
-kd=1; %Utilizar o mais adequado a partir do lugar das raizes anterior
+kd=0.0199; %Utilizar o mais adequado a partir do lugar das raizes anterior
 Gkd=pid(kp,ki,kd); 
 a=series(Gkd,sys); 
-syskdmf=feedback(a,1);
+syskdmf=feedback(a,1)
 
-figure(6)
-step(syskdmf); 
+figure(42)
+[yLR]=step(syskdmf,T); 
+stepinfo(syskdmf)
+
+figure(43)
+pzmap(syskdmf); 
+%% Com compensador
+[Gc,Kc]=compensador2P(-0.5+1i,Den)
+sysKc=series(Gc,sys)
+
+figure(101)
+step(sysKc)
+grid on
+
+figure(102)
+pzmap(sysKc)
+%% Sintonia proporcional
+figure(111)
+rlocus(sysKc)
+
+%% Sintonia proporcional (continuação)
+kpKc=0.01; %Utilizar o mais adequado a partir do lugar das raizes anterior
+GkpKc=pid(kpKc,0,0); 
+a=series(GkpKc,sys); 
+syskpmfKc=feedback(a,1)
+
+figure(112)
+step(syskpmfKc);
+
+figure(113)
+pzmap(syskpmfKc);
+ 
+
+%% Sintonia integrativa
+syskimaKc=(N/(s*(D+(kp*N))));
+
+figure(131)
+rlocus(syskimaKc)
+
+%% Sintonia integrativa (continuação)
+kiKc=0; %Utilizar o mais adequado a partir do lugar das raizes anterior
+GkiKc=pid(kpKc,kiKc,0); 
+a=series(GkiKc,sysKc); 
+syskimfKc=feedback(a,1)
+
+figure(132)
+step(syskimfKc); 
+
+figure(133)
+pzmap(syskimfKc);
+
+%% Sintonia derivativa
+syskdmaKc=((N*(s^2))/(s*D+(kp*s*N)+(ki*N)));
+
+figure(141)
+rlocus(syskdmaKc)
+
+%% Sintonia derivativa (continuação)
+kdKc=0.0199; %Utilizar o mais adequado a partir do lugar das raizes anterior
+GkdKc=pid(kpKc,kiKc,kdKc); 
+a=series(GkdKc,sysKc); 
+syskdmfKc=feedback(a,1)
+
+figure(142)
+[yLRKc]=step(syskdmfKc,T); 
+stepinfo(syskdmfKc)
+
+figure(143)
+pzmap(syskdmfKc); 
+
+
+
+%% Plots oficiais
+figure(51)
+plot(T,yLR,'linewidth',1.3)
+hold on
+plot(T,yLRKc,'linewidth',1.3)
+grid on
+title('Resposta à entrada do tipo degrau')
+xlabel('Tempo [s]')
+ylabel('Posição angular [rad]')
+legend('Sem compensador','Com compensador','location','southeast')
+baseFileName = sprintf('Image_%s.png', "LR");
+fullFileName = fullfile("Imagens\", baseFileName);
+saveas(51, fullFileName);

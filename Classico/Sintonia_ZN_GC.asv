@@ -23,7 +23,6 @@ N=tf(Num,1);
 D=tf(Den,1);
 s=tf([1 0],1);
 
-
 %% Determinação do ganho crítico
 rlocus(sys)
 kcrit=0.75 %Utilizar o mais adequado a partir do lugar das raizes anterior
@@ -36,7 +35,7 @@ figure(2)
 step(syskcrit,t)
 ycrit=step(syskcrit,t)
 
-[~,peaklocs] = findpeaks(ycrit);
+[~,peaklocs] = findpeaks(ycri);
 Pcrit = t(round(mean(diff(peaklocs))));
 
 %% Determinação do controlador
@@ -71,39 +70,16 @@ saveas(51, fullFileName);
 
 figure(52)
 bode(sysZN)
-grid on
 baseFileName = sprintf('Image_%s.png', "Bode_ZN");
 fullFileName = fullfile("Imagens\", baseFileName);
-Fh = gcf;                                                   % Handle To Current Figure
-Kids = Fh.Children;                                         % Children
-AxAll = findobj(Kids,'Type','Axes');                        % Handles To Axes
-Ax1 = AxAll(1);                                             % First Set Of Axes
-LinesAx1 = findobj(Ax1,'Type','Line');                      % Handle To Lines
-LinesAx1(2).LineWidth = 1.3;                                  % Set ‘LineWidth’
-Ax2 = AxAll(2);                                             % Second Set Of Axes
-LinesAx2 = findobj(Ax2,'Type','Line');                      % Handle To Lines
-LinesAx2(2).LineWidth = 1.3;                                  % Set ‘LineWidth’
 saveas(52, fullFileName);
-
-
-
 
 figure(2)
 margin(sysZN)
 grid on
 baseFileName = sprintf('Image_%s.png', "Margem_ZN");
 fullFileName = fullfile("Imagens\", baseFileName);
-Fh = gcf;                                                   % Handle To Current Figure
-Kids = Fh.Children;                                         % Children
-AxAll = findobj(Kids,'Type','Axes');                        % Handles To Axes
-Ax1 = AxAll(1);                                             % First Set Of Axes
-LinesAx1 = findobj(Ax1,'Type','Line');                      % Handle To Lines
-LinesAx1(2).LineWidth = 1.3;                                  % Set ‘LineWidth’
-Ax2 = AxAll(2);                                             % Second Set Of Axes
-LinesAx2 = findobj(Ax2,'Type','Line');                      % Handle To Lines
-LinesAx2(2).LineWidth = 1.3;
 saveas(2, fullFileName);
-
 % 
 % figure(1)
 % Closed_Logarithmic_Nyquist(syskdmf)

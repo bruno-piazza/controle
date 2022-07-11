@@ -1,20 +1,21 @@
-%% Sintonia por ITAE (Executar célula por célula)
+%% Rejeitador de distúrbio
 clc
 clear all
 close all
 
 %% Tempo
-dt = 0.001;
+dt = 1;
 tf = 90*60;
 t = 0:dt:tf;
 
 %% Planta 
-addpath('Matrizes\')
+addpath("Matrizes/")
 
 A = importdata('matrix_A1lin.txt');
 B = importdata('matrix_B1lin.txt');
 B1 = -B;
 C = [eye(3) zeros(3,3)];
+Aw = importdata('Aw.txt');
 sysma=ss(A,B,C,0);
 
 p1 = -0.3+0.3i;
@@ -35,15 +36,21 @@ Rr = 2; %raio da trajetória [m]
 Tr = 30; %período da trajetória [s]
 
 % Condições iniciais
-xbarra0 = [0;0;0;0;0;0;1e-6;1e-6;1e-6;0;0;0;0;0;0];
+xbarra0 = [0;0;0;
+           0;0;0;
+           1;1;1;
+           0;0;0;
+           0;0;0;
+           0;0;0];
 
 %matriz dinâmica de referência
-Ar = [1 0 0 0 0 0;
-      0 1 0 0 0 0;
-      0 0 1 0 0 0;
-      0 0 0 0 0 0;
-      0 0 0 0 0 0;
-      0 0 0 0 0 0];
+% Ar = [1 0 0 0 0 0;
+%       0 1 0 0 0 0;
+%       0 0 1 0 0 0;
+%       0 0 0 0 0 0;
+%       0 0 0 0 0 0;
+%       0 0 0 0 0 0];
+Ar=A;
 
 %matriz dinâmica de distúrbio
 % Ad = [0 1 0 0 0 0;
@@ -53,9 +60,7 @@ Ar = [1 0 0 0 0 0;
 %       0 0 0 0 0 1;
 %       0 0 0 0 -omegad^2 0];
 
-Ad = 1/100*[-41.9938648159790	-35.9947506215021	-5795.14933552378;
-        233304.083573796	199975.061457068	32195941.2600482;
-        -1448.78938342553	-1241.82029553629	-199932.796599317];
+Ad = Aw;
 
 %matriz de entrada de distúrbio
 % B1 = [0 1 0 0 0 0;
@@ -64,7 +69,7 @@ Ad = 1/100*[-41.9938648159790	-35.9947506215021	-5795.14933552378;
 %       0 0 0 0 0 0;
 %       0 0 0 0 0 0;
 %       0 0 0 0 0 0];
-% B1 = [B1 zeros(6,3)];
+B1 = [B1 zeros(6,3)];
 
 %matriz singular (sistema quadrado)
 Cbarra = [1 0 0 0 0 0;
@@ -76,11 +81,11 @@ Cbarra = [1 0 0 0 0 0;
 F = [B1 (A-Ar)];
 F1 = A-B*K;
 Kex = inv(Cbarra*inv(F1)*B)*Cbarra*inv(F1)*F;
-A0 = [Ad zeros(3,6); zeros(6,3) Ar];
+A0 = [Ad zeros(6,6); zeros(6,6) Ar];
 Ay = [B1 B*K]-B*Kex;
-Abarra = [F1 Ay; zeros(9,6) A0];
+Abarra = [F1 Ay; zeros(12,6) A0];
 C1 = eye(size(Abarra));
-Bbarra = zeros(15,1);
+Bbarra = zeros(18,1);
 
 sys2 = ss(Abarra,Bbarra,C1,0);
 
@@ -88,11 +93,6 @@ u=zeros(length(t),1);
 
 [ys,ts,xbarra] = lsim(sys2,u,t,xbarra0);
 % xbarra = step(sys2,t);
-
-% plano s
-[p_seg,z_seg]=pzmap(sys2);
-pzmap(sys2)
-grid on
 
 figure(5);
 plf=plot(t,xbarra(:,7),t,xbarra(:,8),t,xbarra(:,9));

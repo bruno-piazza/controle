@@ -5,7 +5,7 @@ close all
 
 %% Tempo
 dt = 0.1;
-tf = 2*60*90;
+tf = 2*90*60;
 t = 0:dt:tf;
 
 %% Planta 
@@ -66,21 +66,35 @@ u=zeros(length(t),1);
 % xbarra = step(sys2,t);
 
 figure(1);
-plf=plot(t,xbarra(:,7),t,xbarra(:,8),t,xbarra(:,9));
+plf=plot(t,xbarra(:,7),t,xbarra(:,8),t,xbarra(:,9),LineWidth=1.30);
 legend('T_1','T_2','T_3');
-xlabel('Tempo (s)');
-ylabel('Distúrbios');
+xlabel('Tempo [s]');
+ylabel('Distúrbios [N.m]');
+
+baseFileName = sprintf('Image_%s.png', "seg_var_dist");
+fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+saveas(1, fullFileName);
+
 
 figure(2);
-plot(t,xbarra(:,1),t,xbarra(:,2),t,xbarra(:,3));
+plot(t,xbarra(:,1),t,xbarra(:,2),t,xbarra(:,3),LineWidth=1.3);
 hold on
-plot(t,xbarra(:,13),t,xbarra(:,14),t,xbarra(:,15),'LineStyle','- -');
+plot(t,xbarra(:,13),t,xbarra(:,14),t,xbarra(:,15),'LineStyle','- -',LineWidth=1.3);
 legend('q_1','q_2','q_3','q_1_{ref}','q_2_{ref}','q_3_{ref}');
 xlabel('Tempo (s)');
 ylabel('Estado do sistema posições');
 
+% baseFileName = sprintf('Image_%s.png', "seg_var_q_t");
+% fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+% saveas(2, fullFileName);
+
+
 figure(3);
-plot(t,xbarra(:,4),t,xbarra(:,5),t,xbarra(:,6));
+plot(t,xbarra(:,4),t,xbarra(:,5),t,xbarra(:,6),LineWidth=1.3);
 legend('omega_1','omega_2','omega_3');
 xlabel('Tempo (s)');
 ylabel('Estado do sistema velocidades');
+
+% baseFileName = sprintf('Image_%s.png', "seg_var_w_t");
+% fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+% saveas(3, fullFileName);

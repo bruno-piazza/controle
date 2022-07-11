@@ -129,7 +129,7 @@ saveas(5, fullFileName);
 
 
 %% Plot malha aberta
-yma=step(sys,t)
+yma=step(sys,t);
 figure(6)
 plot(t,yma,'linewidth',1.3)
 grid on

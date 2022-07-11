@@ -95,8 +95,11 @@ stepinfo(syskdmf)
 figure(43)
 pzmap(syskdmf); 
 %% Com compensador
+close all
 [Gc,Kc]=compensador2P(-0.5+1i,Den)
 sysKc=series(Gc,sys)
+Numcomp=tf(Gc.Numerator{1},1);
+Dencomp=tf(Gc.Denominator{1},1);
 
 figure(101)
 step(sysKc)
@@ -109,9 +112,9 @@ figure(111)
 rlocus(sysKc)
 
 %% Sintonia proporcional (continuação)
-kpKc=0.01 %Utilizar o mais adequado a partir do lugar das raizes anterior
+kpKc=0.04 %Utilizar o mais adequado a partir do lugar das raizes anterior
 GkpKc=pid(kpKc,0,0); 
-a=series(GkpKc,sys); 
+a=series(GkpKc,sysKc); 
 syskpmfKc=feedback(a,1)
 
 figure(112)
@@ -122,13 +125,13 @@ pzmap(syskpmfKc);
  
 
 %% Sintonia integrativa
-syskimaKc=(N/(s*(D+(kp*N))));
+syskimaKc=(Numcomp*N/(s*(Dencomp*D+(kpKc*Numcomp*N))));
 
 figure(131)
 rlocus(syskimaKc)
 
 %% Sintonia integrativa (continuação)
-kiKc=0 %Utilizar o mais adequado a partir do lugar das raizes anterior
+kiKc=0.025 %Utilizar o mais adequado a partir do lugar das raizes anterior
 GkiKc=pid(kpKc,kiKc,0); 
 a=series(GkiKc,sysKc); 
 syskimfKc=feedback(a,1)
@@ -140,13 +143,13 @@ figure(133)
 pzmap(syskimfKc);
 
 %% Sintonia derivativa
-syskdmaKc=((N*(s^2))/(s*D+(kp*s*N)+(ki*N)));
+syskdmaKc=((Numcomp*N*(s^2))/(s*Dencomp*D+(kpKc*s*Numcomp*N)+(kiKc*Numcomp*N)));
 
 figure(141)
 rlocus(syskdmaKc)
 
 %% Sintonia derivativa (continuação)
-kdKc=0.0199 %Utilizar o mais adequado a partir do lugar das raizes anterior
+kdKc=0.02 %Utilizar o mais adequado a partir do lugar das raizes anterior
 GkdKc=pid(kpKc,kiKc,kdKc); 
 a=series(GkdKc,sysKc); 
 syskdmfKc=feedback(a,1)

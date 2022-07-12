@@ -199,11 +199,11 @@ Ax2 = AxAll(2);
 
 
 figure(2)
-margin(syskdmf)
-hold on
+% margin(syskdmf)
+% hold on
 margin(syskdmfKc)
 grid on
-legend('Sem compensador','Com compensador','location','northeast')
+%legend('Sem compensador','Com compensador','location','northeast')
 baseFileName = sprintf('Image_%s.png', "Margem_LR");
 fullFileName = fullfile("Imagens\", baseFileName);
 saveas(2, fullFileName);

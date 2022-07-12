@@ -185,8 +185,8 @@ hold off
 figure(2)
 ZNb = bodeplot(sysZN,'-r');
 hold on
-alocb=bodeplot(sys_ana,'-y');
-itaeb=bodeplot(FT_comp,'-b');
+alocb=bodeplot(sys_ana,'-b');
+itaeb=bodeplot(FT_comp,'-y');
 rlb=bodeplot(syskdmfKc,'-g');
 grid on
 legend('ZN sem Compensador','Alocação de Polos sem Compensador',...

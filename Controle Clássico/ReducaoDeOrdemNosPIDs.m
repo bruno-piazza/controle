@@ -225,9 +225,9 @@ legend('ZN sem Compensador','Alocação de Polos sem Compensador',...
 hold off
 
 figure(4)
-ZNbode=bodeplot(sysZN,'-r',{10^(-2),10^3});
+ZNbode=bodeplot(syskdmfKc,'-r',{10^(-2),10^3});
 hold on
-ZNb = bodeplot(ZNred,'--b',{10^(-2),10^3});
+ZNb = bodeplot(LRred,'--b',{10^(-2),10^3});
 grid on
-legend('Lugar das Raízes sem ordem reduzida','Lugar das Raízes com ordem reduzida','Location','southwest')
+legend('Lugar das Raízes sem ordem reduzida','Lugar das Raízes com ordem reduzida','Location','northeast')
 hold off

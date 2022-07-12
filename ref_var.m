@@ -33,7 +33,7 @@ K = place(A,B,p);
 % Condições iniciais
 xbarra0 = [0;0;0;
            0;0;0;
-           5e-15;5e-15;5e-15;
+           5e-9;5e-9;5e-9;
            0;0;0;
            xq_r(1);xq_r(2);xq_r(3);
            0; 0; 0];
@@ -88,9 +88,9 @@ legend('q_1','q_2','q_3','q_1_{ref}','q_2_{ref}','q_3_{ref}');
 xlabel('Tempo [s]');
 ylabel('Posição angular q [rad]');
 
-baseFileName = sprintf('Image_%s.png', "seg_var_q_t");
-fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
-saveas(2, fullFileName);
+% baseFileName = sprintf('Image_%s.png', "seg_var_q_t");
+% fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+% saveas(2, fullFileName);
 
 
 figure(3);
@@ -101,6 +101,6 @@ legend('\omega_1','\omega_2','\omega_3');
 xlabel('Tempo [s]');
 ylabel('Velocidade angular [rad/s]');
 
-baseFileName = sprintf('Image_%s.png', "seg_var_w_t");
-fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
-saveas(3, fullFileName);
+% baseFileName = sprintf('Image_%s.png', "seg_var_w_t");
+% fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+% saveas(3, fullFileName);

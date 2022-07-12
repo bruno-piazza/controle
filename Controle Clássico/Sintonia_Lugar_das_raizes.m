@@ -39,9 +39,6 @@ figure(2)
 pzmap(sys)
 %% Sintonia proporcional
 
-
-
-
 figure(11)
 rlocus(sys)
 
@@ -96,8 +93,8 @@ figure(43)
 pzmap(syskdmf); 
 %% Com compensador
 close all
-[Gc,Kc]=compensador2P(-0.5+1i,Den)
-sysKc=series(Gc,sys)
+[Gc,Kc]=compensador2P(-0.5+1i,Den);
+sysKc=series(Gc,sys);
 Numcomp=tf(Gc.Numerator{1},1);
 Dencomp=tf(Gc.Denominator{1},1);
 

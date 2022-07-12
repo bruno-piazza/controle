@@ -104,3 +104,61 @@ baseFileName = sprintf('Image_%s.png', "aloc_pos");
 fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
 saveas(4, fullFileName);
 
+q=[1 0 0 0 0. .15 0.];
+
+
+passo=0.001;
+t=0:passo:15;
+u=zeros(length(t),3);
+% u(1:5000,:)=ones(5000,3);
+% u(:,1)=zeros(length(t),1);
+% u(:,3)=zeros(length(t),1);
+[y]=lsim(sys_aloc,u,t,q(2:end));
+
+
+
+figure(6)
+hold on
+plot(t,y(:,4),LineWidth=1.20)
+plot(t,y(:,5),LineWidth=1.20)
+plot(t,y(:,6),LineWidth=1.20)
+title("Velocidade angular: \omega inicial aplicado")
+xlabel("Tempo [s]")
+ylabel("Velocidade angular [rad/s]")
+legend('\omega_1','\omega_2','\omega_3','Location','northeast')
+hold off
+grid on
+% baseFileName = sprintf('Image_%s.png', "aloc_wt_vel");
+% fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+% saveas(6, fullFileName);
+
+figure(7)
+hold on
+plot(t,y(:,1),LineWidth=1.20)
+plot(t,y(:,2),LineWidth=1.20)
+plot(t,y(:,3),LineWidth=1.20)
+title("Posição: \omega inicial aplicado aplicado")
+xlabel("Tempo [s]")
+ylabel("Posição angular [rad]")
+legend('q_1','q_2','q_3','Location','northeast')
+hold off
+grid on
+% baseFileName = sprintf('Image_%s.png', "aloc_wt_pos");
+% fullFileName = fullfile("Imagens\Controle Moderno", baseFileName);
+% saveas(7, fullFileName);
+
+
+% 
+% [psi,theta,phi] = quat2eulang(q(1),y(:,1),y(:,2),y(:,3),'ZXZ');
+% 
+% figure(8)
+% hold on
+% plot(t,psi,LineWidth=1.20)
+% plot(t,theta,LineWidth=1.20)
+% plot(t,phi,LineWidth=1.20)
+% title("Posição: degrau aplicado")
+% xlabel("Tempo [s]")
+% ylabel("Posição angular [rad]")
+% legend('psi','theta','phi','Location','southeast')
+% hold off
+% grid on

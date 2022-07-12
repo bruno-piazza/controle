@@ -158,18 +158,37 @@ syskdmfKc=feedback(a,1);
 [y_comp_rl]=step(syskdmfKc,t); 
 
 
-%% GrÃ¡ficos finais
+%% Gráficos finais
+%Cores RGB (Vermelho Ferrari, Azul Marinho, Ouro metálico, Verde escuro, 
+%Violeta, Laranja)
+col=[[207 14 14];[18 10 143];[212 175 55]; [50 150 50]; [102 0 161];...
+    [242 79 0]]./255;
+
 figure(1)
-plot(t,y_ZN,LineWidth=1.3,Color='r')
+ZN = plot(t,y_ZN,'LineWidth',1.2);
+ZN.Color=col(1,:);
 hold on
-plot(t,y_aloc,LineWidth=1.3,Color='blue')
-plot(t,y_comp_itae,LineWidth=1.3,Color='magenta')
-plot(t,y_comp_rl,LineWidth=1.3,Color='black')
+aloc=plot(t,y_aloc,'LineWidth',1.2);
+aloc.Color=col(2,:);
+itae=plot(t,y_comp_itae,'LineWidth',1.2);
+itae.Color=col(3,:);
+rl=plot(t,y_comp_rl,'LineWidth',1.2);
+rl.Color=col(4,:);
 grid on
-title("PosiÃ§Ã£o angular q_3 em funÃ§Ã£o do tempo")
+title("Posição angular q_3 em função do tempo")
 xlabel("Tempo [s]")
-ylabel("PosiÃ§Ã£o angular [rad]")
-legend('ZN sem Compensador','AlocaÃ§Ã£o de Polos sem Compensador',...
-    'ITAE com Compensador','Lugar das RaÃ­zes com Compensador','Location','southeast')
+ylabel("Posição angular [rad]")
+legend('ZN sem Compensador','Alocação de Polos sem Compensador',...
+    'ITAE com Compensador','Lugar das Raízes com Compensador','Location','southeast')
 hold off
 
+figure(2)
+ZNb = bodeplot(sysZN,'-r');
+hold on
+alocb=bodeplot(sys_ana,'-y');
+itaeb=bodeplot(FT_comp,'-b');
+rlb=bodeplot(syskdmfKc,'-g');
+grid on
+legend('ZN sem Compensador','Alocação de Polos sem Compensador',...
+    'ITAE com Compensador','Lugar das Raízes com Compensador','Location','best')
+hold off

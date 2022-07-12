@@ -204,20 +204,20 @@ figure(2)
 margin(syskdmfKc)
 grid on
 %legend('Sem compensador','Com compensador','location','northeast')
-baseFileName = sprintf('Image_%s.png', "Margem_LR");
-fullFileName = fullfile("Imagens\", baseFileName);
-saveas(2, fullFileName);
 grid on
-baseFileName = sprintf('Image_%s.png', "Margem_ZN");
-fullFileName = fullfile("Imagens\", baseFileName);
 Fh = gcf;                                                   % Handle To Current Figure
 Kids = Fh.Children;                                         % Children
 AxAll = findobj(Kids,'Type','Axes');                        % Handles To Axes
 Ax1 = AxAll(1);                                             % First Set Of Axes
 LinesAx1 = findobj(Ax1,'Type','Line');                      % Handle To Lines
 LinesAx1(2).LineWidth = 1.3;                                  % Set ‘LineWidth’
+Ax2 = AxAll(2);                                             % Second Set Of Axes
+LinesAx2 = findobj(Ax2,'Type','Line');                      % Handle To Lines
+LinesAx2(2).LineWidth = 1.3;                                  % Set ‘LineWidth’
 Ax2 = AxAll(2);  
-
+baseFileName = sprintf('Image_%s.png', "Margem_LR");
+fullFileName = fullfile("Imagens\", baseFileName);
+saveas(2, fullFileName);
 % 
 % figure(1)
 % Closed_Logarithmic_Nyquist(syskdmf)

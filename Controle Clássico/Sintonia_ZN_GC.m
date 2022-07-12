@@ -14,6 +14,7 @@ D = importdata('matrix_D1.txt');
 sample_rate = 100;
 t = 0:1/sample_rate:10;
 n = length(t);
+
 %% Construção da função de transferência de malha aberta (q3->Rot Própria)
 [Num,Den] = ss2tf(A,B,C,D,3);
 Num=Num(3,:);
@@ -59,7 +60,7 @@ stepinfo(sysZN)
 %% Plots oficiais
 close all
 
-figure(51)
+figure(1)
 plot(t,y,'linewidth',1.3)
 grid on
 title('Resposta à entrada do tipo degrau')
@@ -67,9 +68,9 @@ xlabel('Tempo [s]')
 ylabel('Posição angular [rad]')
 baseFileName = sprintf('Image_%s.png', "ZN_step");
 fullFileName = fullfile("Imagens\", baseFileName);
-saveas(51, fullFileName);
+saveas(1, fullFileName);
 
-figure(52)
+figure(2)
 bode(sysZN)
 grid on
 baseFileName = sprintf('Image_%s.png', "Bode_ZN");
@@ -83,12 +84,9 @@ LinesAx1(2).LineWidth = 1.3;                                  % Set ‘LineWidth’
 Ax2 = AxAll(2);                                             % Second Set Of Axes
 LinesAx2 = findobj(Ax2,'Type','Line');                      % Handle To Lines
 LinesAx2(2).LineWidth = 1.3;                                  % Set ‘LineWidth’
-saveas(52, fullFileName);
+saveas(2, fullFileName);
 
-
-
-
-figure(2)
+figure(3)
 margin(sysZN)
 grid on
 baseFileName = sprintf('Image_%s.png', "Margem_ZN");
@@ -102,7 +100,7 @@ LinesAx1(2).LineWidth = 1.3;                                  % Set ‘LineWidth’
 Ax2 = AxAll(2);                                             % Second Set Of Axes
 LinesAx2 = findobj(Ax2,'Type','Line');                      % Handle To Lines
 LinesAx2(2).LineWidth = 1.3;
-saveas(2, fullFileName);
+saveas(3, fullFileName);
 
 % 
 % figure(1)

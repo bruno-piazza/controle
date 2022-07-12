@@ -10,16 +10,13 @@ B = -importdata('matrix_B1lin.txt');
 C = importdata('matrix_C1.txt');
 D = importdata('matrix_D1.txt');
 
-T=0:0.01:10;
+t = 0:0.01:10;
 %% Construção do sistema via espaço de estados
 sysSS=ss(A,B,C,D);
 
 %% Construção da função de transferência de malha aberta (q3->Rot Própria)
 [Num,Den] = ss2tf(A,B,C,D,3);
 Num=Num(3,:);
-
-% Num=[1 1];
-% Den=[1 3 12 -16 0]
 
 sys=tf(Num,Den);
 N=tf(Num,1);
@@ -30,7 +27,6 @@ s=tf([1 0],1);
 % sys=series(Gc,sys)
 
 
-
 figure(1)
 step(sys)
 grid on
@@ -39,7 +35,7 @@ figure(2)
 pzmap(sys)
 %% Sintonia proporcional
 
-figure(11)
+figure(3)
 rlocus(sys)
 
 %% Sintonia proporcional (continuação)
@@ -48,17 +44,17 @@ Gkp=pid(kp,0,0);
 a=series(Gkp,sys); 
 syskpmf=feedback(a,1)
 
-figure(12)
+figure(4)
 step(syskpmf);
 
-figure(13)
+figure(5)
 pzmap(syskpmf);
  
 
 %% Sintonia integrativa
 syskima=(N/(s*(D+(kp*N))));
 
-figure(31)
+figure(6)
 rlocus(syskima)
 
 %% Sintonia integrativa (continuação)
@@ -67,16 +63,16 @@ Gki=pid(kp,ki,0);
 a=series(Gki,sys); 
 syskimf=feedback(a,1)
 
-figure(32)
+figure(7)
 step(syskimf); 
 
-figure(33)
+figure(8)
 pzmap(syskimf);
 
 %% Sintonia derivativa
 syskdma=((N*(s^2))/(s*D+(kp*s*N)+(ki*N)));
 
-figure(41)
+figure(9)
 rlocus(syskdma)
 
 %% Sintonia derivativa (continuação)
@@ -85,11 +81,11 @@ Gkd=pid(kp,ki,kd);
 a=series(Gkd,sys); 
 syskdmf=feedback(a,1)
 
-figure(42)
-[yLR]=step(syskdmf,T); 
+figure(10)
+[yLR]=step(syskdmf,t); 
 stepinfo(syskdmf)
 
-figure(43)
+figure(11)
 pzmap(syskdmf); 
 %% Com compensador
 close all
@@ -98,14 +94,15 @@ sysKc=series(Gc,sys);
 Numcomp=tf(Gc.Numerator{1},1);
 Dencomp=tf(Gc.Denominator{1},1);
 
-figure(101)
+figure(12)
 step(sysKc)
 grid on
 
-figure(102)
+figure(13)
 pzmap(sysKc)
+
 %% Sintonia proporcional
-figure(111)
+figure(14)
 rlocus(sysKc)
 
 %% Sintonia proporcional (continuação)
@@ -114,17 +111,17 @@ GkpKc=pid(kpKc,0,0);
 a=series(GkpKc,sysKc); 
 syskpmfKc=feedback(a,1)
 
-figure(112)
+figure(15)
 step(syskpmfKc);
 
-figure(113)
+figure(16)
 pzmap(syskpmfKc);
  
 
 %% Sintonia integrativa
 syskimaKc=(Numcomp*N/(s*(Dencomp*D+(kpKc*Numcomp*N))));
 
-figure(131)
+figure(17)
 rlocus(syskimaKc)
 
 %% Sintonia integrativa (continuação)
@@ -133,16 +130,16 @@ GkiKc=pid(kpKc,kiKc,0);
 a=series(GkiKc,sysKc); 
 syskimfKc=feedback(a,1)
 
-figure(132)
+figure(18)
 step(syskimfKc); 
 
-figure(133)
+figure(19)
 pzmap(syskimfKc);
 
 %% Sintonia derivativa
 syskdmaKc=((Numcomp*N*(s^2))/(s*Dencomp*D+(kpKc*s*Numcomp*N)+(kiKc*Numcomp*N)));
 
-figure(141)
+figure(20)
 rlocus(syskdmaKc)
 
 %% Sintonia derivativa (continuação)
@@ -151,11 +148,11 @@ GkdKc=pid(kpKc,kiKc,kdKc);
 a=series(GkdKc,sysKc); 
 syskdmfKc=feedback(a,1)
 
-figure(142)
-[yLRKc]=step(syskdmfKc,T); 
+figure(21)
+[yLRKc]=step(syskdmfKc,t); 
 stepinfo(syskdmfKc)
 
-figure(143)
+figure(22)
 pzmap(syskdmfKc); 
 
 
@@ -163,10 +160,10 @@ pzmap(syskdmfKc);
 %% Plots oficiais
 close all
 
-figure(51)
-plot(T,yLR,'linewidth',1.3)
+figure(23)
+plot(t,yLR,'linewidth',1.3)
 hold on
-plot(T,yLRKc,'linewidth',1.3)
+plot(t,yLRKc,'linewidth',1.3)
 grid on
 title('Resposta à entrada do tipo degrau')
 xlabel('Tempo [s]')
@@ -174,15 +171,15 @@ ylabel('Posição angular [rad]')
 legend('Sem compensador','Com compensador','location','southeast')
 baseFileName = sprintf('Image_%s.png', "LR");
 fullFileName = fullfile("Imagens\", baseFileName);
-saveas(51, fullFileName);
+saveas(23, fullFileName);
 
-figure(52)
+figure(24)
 bode(syskdmf,syskdmfKc)
 grid on
 legend('Sem compensador','Com compensador','location','northeast')
 baseFileName = sprintf('Image_%s.png', "Bode_LR");
 fullFileName = fullfile("Imagens\", baseFileName);
-saveas(52, fullFileName);
+saveas(24, fullFileName);
 grid on
 baseFileName = sprintf('Image_%s.png', "Margem_ZN");
 fullFileName = fullfile("Imagens\", baseFileName);
@@ -195,7 +192,7 @@ LinesAx1(2).LineWidth = 1.3;                                  % Set ‘LineWidth’
 Ax2 = AxAll(2);  
 
 
-figure(2)
+figure(25)
 % margin(syskdmf)
 % hold on
 margin(syskdmfKc)
@@ -214,23 +211,16 @@ LinesAx2(2).LineWidth = 1.3;                                  % Set ‘LineWidth’
 Ax2 = AxAll(2);  
 baseFileName = sprintf('Image_%s.png', "Margem_LR");
 fullFileName = fullfile("Imagens\", baseFileName);
-saveas(2, fullFileName);
-% 
-% figure(1)
-% Closed_Logarithmic_Nyquist(syskdmf)
+saveas(25, fullFileName);
 
-% figure(3)
-% Closed_Logarithmic_Nyquist(syskdmfKc)
-
-figure(4)
+figure(26)
 pzmap(syskdmf)
 baseFileName = sprintf('Image_%s.png', "PZ_LR");
 fullFileName = fullfile("Imagens\", baseFileName);
-saveas(4, fullFileName);
+saveas(26, fullFileName);
 
-
-figure(5)
+figure(27)
 pzmap(syskdmfKc)
 baseFileName = sprintf('Image_%s.png', "PZ_LR_comp");
 fullFileName = fullfile("Imagens\", baseFileName);
-saveas(5, fullFileName);
+saveas(27, fullFileName);

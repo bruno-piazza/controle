@@ -158,12 +158,18 @@ syskdmfKc=feedback(a,1);
 [y_comp_rl]=step(syskdmfKc,t); 
 
 
+<<<<<<< Updated upstream
 %% Gráficos finais
 %Cores RGB (Vermelho Ferrari, Azul Marinho, Ouro metálico, Verde escuro, 
+=======
+%% GrÃ¡ficos finais
+%Cores RGB (Vermelho Ferrari, Azul Marinho, Ouro metÃ¡lico, Verde escuro, 
+>>>>>>> Stashed changes
 %Violeta, Laranja)
 col=[[207 14 14];[18 10 143];[212 175 55]; [50 150 50]; [102 0 161];...
     [242 79 0]]./255;
 
+<<<<<<< Updated upstream
 figure(1)
 ZN = plot(t,y_ZN,'LineWidth',1.2);
 ZN.Color=col(1,:);
@@ -173,6 +179,20 @@ aloc.Color=col(2,:);
 itae=plot(t,y_comp_itae,'LineWidth',1.2);
 itae.Color=col(3,:);
 rl=plot(t,y_comp_rl,'LineWidth',1.2);
+=======
+% h=plot();
+% h.Color=col(j,:); %Sendo j o nÃºmero da cor desejada
+
+figure(1)
+ZN = plot(t,y_ZN,LineWidth=1.2);
+ZN.Color=col(1,:);
+hold on
+aloc=plot(t,y_aloc,LineWidth=1.2);
+aloc.Color=col(2,:);
+itae=plot(t,y_comp_itae,LineWidth=1.2);
+itae.Color=col(3,:);
+rl=plot(t,y_comp_rl,LineWidth=1.2);
+>>>>>>> Stashed changes
 rl.Color=col(4,:);
 grid on
 title("Posição angular q_3 em função do tempo")
@@ -182,6 +202,7 @@ legend('ZN sem Compensador','Alocação de Polos sem Compensador',...
     'ITAE com Compensador','Lugar das Raízes com Compensador','Location','southeast')
 hold off
 
+<<<<<<< Updated upstream
 figure(2)
 ZNb = bodeplot(sysZN,'-r');
 hold on
@@ -192,3 +213,10 @@ grid on
 legend('ZN sem Compensador','Alocação de Polos sem Compensador',...
     'ITAE com Compensador','Lugar das Raízes com Compensador','Location','best')
 hold off
+=======
+baseFileName = sprintf('Image_%s.png', "comparacao");
+fullFileName = fullfile("Imagens\", baseFileName);
+saveas(1, fullFileName);
+
+
+>>>>>>> Stashed changes

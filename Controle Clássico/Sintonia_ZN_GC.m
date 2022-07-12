@@ -26,7 +26,7 @@ s=tf([1 0],1);
 
 %% Determinação do ganho crítico
 rlocus(sys)
-kcrit=0.75 %Utilizar o mais adequado a partir do lugar das raizes anterior
+kcrit=2.5 %Utilizar o mais adequado a partir do lugar das raizes anterior
 Gkcrit=pid(kcrit,0,0); 
 a=series(Gkcrit,sys); 
 syskcrit=feedback(a,1)
@@ -56,7 +56,7 @@ stepinfo(sysZN)
 
 
 
-%% Plots osysZNficiais
+%% Plots oficiais
 close all
 
 figure(51)
